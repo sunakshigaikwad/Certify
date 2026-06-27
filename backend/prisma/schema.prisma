@@ -1,0 +1,102 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             String        @id @default(uuid())
+  name           String
+  email          String        @unique
+  passwordHash   String
+  role           String        // ADMIN, EMPLOYEE, EVALUATOR
+  designation    String?
+  status         String        @default("ACTIVE") // ACTIVE, INACTIVE
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  teamManagerId  String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  evaluations    Evaluation[]
+}
+
+model Organization {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     User[]
+}
+
+model CertificateRequest {
+  id                   String        @id @default(uuid())
+  employeeId           String
+  employeeName         String
+  employeeEmail        String
+  skillsRequested      String        // comma-separated
+  duration             String
+  attendance           Int
+  status               String        // SUBMITTED, FORWARDED, EVALUATED, ISSUED, REJECTED
+  resumePath           String?
+  experienceLetterPath String?
+  aadhaarPath          String?
+  supportingDocsPaths  String?       // JSON list or comma-separated
+  currentEvaluatorId   String?
+  evaluatorRole        String?       // Team Manager, HR, HR Manager
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+
+  evaluations          Evaluation[]
+  certificate          Certificate?
+}
+
+model Evaluation {
+  id              String             @id @default(uuid())
+  requestId       String
+  request         CertificateRequest @relation(fields: [requestId], references: [id])
+  evaluatorId     String
+  evaluator       User               @relation(fields: [evaluatorId], references: [id])
+  technicalSkills Int                // 1-5
+  communication   Int                // 1-5
+  teamwork        Int                // 1-5
+  punctuality     Int                // 1-5
+  leadership      Int                // 1-5
+  problemSolving  Int                // 1-5
+  overallRating   Int                // 1-10
+  comments        String?
+  approved        Boolean
+  createdAt       DateTime           @default(now())
+}
+
+model Certificate {
+  id               String             @id @default(uuid())
+  requestId        String             @unique
+  request          CertificateRequest @relation(fields: [requestId], references: [id])
+  certificateId    String             @unique
+  pdfPath          String
+  sha256Hash       String
+  blockchainTxHash String
+  issuedDate       DateTime           @default(now())
+  qrCodePath       String
+  skillsVerified   String             // comma-separated
+  createdAt        DateTime           @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String
+  timestamp DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

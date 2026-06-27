@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment variables
+.env
+
+# Prisma SQLite database
+backend/prisma/*.db
+backend/prisma/*.db-journal
+
+# Blockchain artifacts & cache
+blockchain/artifacts/
+blockchain/cache/
+blockchain/typechain-types/
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
