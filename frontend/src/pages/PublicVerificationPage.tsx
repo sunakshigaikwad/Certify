@@ -1,7 +1,9 @@
 import { API_URL } from '../config';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { GraduationCap, ShieldCheck, Download, Search, AlertCircle, Award, CheckCircle } from 'lucide-react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { GraduationCap, ShieldCheck, Download, Search, AlertCircle, Award, CheckCircle, Loader2 } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 import { Topbar } from '../components/Topbar';
@@ -21,6 +23,8 @@ const QRCodeImage: React.FC<{ value: string; size?: number }> = ({ value, size =
 export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ user, onLogout }) => {
   const isLoggedIn = !!localStorage.getItem('token') || !!user;
   const { certificateId } = useParams<{ certificateId?: string }>();
+  const certRef = useRef<HTMLDivElement>(null);
+  const [downloading, setDownloading] = useState(false);
   const [certId, setCertId] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -53,14 +57,31 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
     fetchCertificate(certId.trim());
   };
 
-  const handleDownload = (pdfPath: string, filename: string) => {
-    const link = document.createElement('a');
-    link.href = `${API_URL}${pdfPath}`;
-    link.setAttribute('download', filename);
-    link.setAttribute('target', '_blank');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const downloadCertificateAsPDF = async () => {
+    if (!certRef.current || !result) return;
+    setDownloading(true);
+    try {
+      const canvas = await html2canvas(certRef.current, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+      });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4',
+      });
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`${result.certificate.certificateId}.pdf`);
+    } catch (err) {
+      console.error('PDF generation failed:', err);
+    } finally {
+      setDownloading(false);
+    }
   };
 
   const verificationUrl = result
@@ -127,11 +148,16 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
                   ✓ HASH MATCH VERIFIED
                 </span>
                 <button
-                  onClick={() => handleDownload(result.certificate.pdfPath, `${result.certificate.certificateId}.pdf`)}
-                  className="emerald-btn-primary py-1.5 px-3 flex items-center space-x-1"
+                  onClick={downloadCertificateAsPDF}
+                  disabled={downloading}
+                  className="emerald-btn-primary py-1.5 px-3 flex items-center space-x-1 disabled:opacity-60"
                 >
-                  <Download className="h-3.5 w-3.5" />
-                  <span>Download</span>
+                  {downloading ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  ) : (
+                    <Download className="h-3.5 w-3.5" />
+                  )}
+                  <span>{downloading ? 'Generating...' : 'Download PDF'}</span>
                 </button>
               </div>
             </div>
@@ -169,8 +195,9 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
           <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-5">Certificate Preview</h3>
 
-            {/* Certificate Card */}
+            {/* Certificate Card — captured by html2canvas for local PDF download */}
             <div
+              ref={certRef}
               className="relative max-w-3xl mx-auto overflow-hidden rounded-lg"
               style={{
                 background: 'linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%)',
