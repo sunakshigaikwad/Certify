@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { GraduationCap, ShieldCheck, Download, Search, AlertCircle, Award, CheckCircle, Loader2 } from 'lucide-react';
+import { GraduationCap, ShieldCheck, Download, Search, AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 import { Topbar } from '../components/Topbar';
@@ -13,11 +13,10 @@ interface PublicVerificationPageProps {
   onLogout?: () => void;
 }
 
-// QR code generated dynamically using free public API — no server file needed
-const QRCodeImage: React.FC<{ value: string; size?: number }> = ({ value, size = 100 }) => {
+const QRCodeImage: React.FC<{ value: string; size?: number }> = ({ value, size = 80 }) => {
   const encoded = encodeURIComponent(value);
   const src = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encoded}&bgcolor=ffffff&color=1a4731&qzone=1`;
-  return <img src={src} alt="QR Verification Code" className="w-full h-full object-contain" />;
+  return <img src={src} alt="QR Verification" className="w-full h-full object-contain" crossOrigin="anonymous" />;
 };
 
 export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ user, onLogout }) => {
@@ -38,7 +37,7 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
       const res = await axios.get(`${API_URL}/certificates/verify/${id}`);
       setResult(res.data);
     } catch (err: any) {
-      setErrorMsg(err.response?.data?.message || 'Certificate not found. Verify ID formatting.');
+      setErrorMsg(err.response?.data?.message || 'Certificate not found. Please check the ID.');
     } finally {
       setLoading(false);
     }
@@ -61,18 +60,17 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
     if (!certRef.current || !result) return;
     setDownloading(true);
     try {
+      // Wait for QR code image to fully load
+      await new Promise(resolve => setTimeout(resolve, 800));
       const canvas = await html2canvas(certRef.current, {
         scale: 3,
         useCORS: true,
+        allowTaint: false,
         backgroundColor: '#ffffff',
         logging: false,
       });
       const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF({
-        orientation: 'landscape',
-        unit: 'mm',
-        format: 'a4',
-      });
+      const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
@@ -90,15 +88,16 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
 
   const renderVerificationContent = () => (
     <div className="w-full flex flex-col items-center">
+      {/* Page Header */}
       <div className="text-center mb-8">
         <ShieldCheck className="h-14 w-14 text-emerald-700 mx-auto mb-3" />
         <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Public Verification Portal</h2>
         <p className="text-sm text-gray-600 mt-2 max-w-lg mx-auto">
-          Input a Certificate ID to verify the authenticity of an employee experience certificate against Polygon Blockchain logs.
+          Enter a Certificate ID to verify the authenticity of an experience certificate on the blockchain.
         </p>
       </div>
 
-      {/* Search form */}
+      {/* Search Form */}
       <form onSubmit={handleSearch} className="w-full max-w-xl bg-white border border-gray-200 rounded p-6 shadow-sm mb-8">
         <div className="flex gap-3">
           <div className="relative flex-1">
@@ -114,12 +113,11 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
           <button
             type="submit"
             disabled={loading}
-            className="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 px-6 rounded text-sm transition-colors duration-150 shadow-sm"
+            className="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 px-6 rounded text-sm transition-colors shadow-sm"
           >
             {loading ? 'Verifying...' : 'Verify'}
           </button>
         </div>
-
         {errorMsg && (
           <div className="mt-4 bg-red-50 border border-red-200 text-red-800 rounded p-3.5 text-sm flex items-center space-x-2">
             <AlertCircle className="h-4 w-4 shrink-0" />
@@ -128,15 +126,15 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
         )}
       </form>
 
-      {/* Results Panel */}
+      {/* Result Panel */}
       {result && (
         <div className="w-full space-y-6">
-          {/* Status Bar */}
-          <div className="bg-white border border-gray-200 rounded p-6 shadow-sm text-left">
+          {/* Verification Summary Card */}
+          <div className="bg-white border border-gray-200 rounded p-6 shadow-sm">
             <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-4 mb-4 gap-4">
               <div className="flex items-center space-x-3">
-                <div className="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-800">
-                  <ShieldCheck className="h-6 w-6" />
+                <div className="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center">
+                  <ShieldCheck className="h-6 w-6 text-emerald-700" />
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-lg">Blockchain Verified</h3>
@@ -150,194 +148,166 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
                 <button
                   onClick={downloadCertificateAsPDF}
                   disabled={downloading}
-                  className="emerald-btn-primary py-1.5 px-3 flex items-center space-x-1 disabled:opacity-60"
+                  className="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-1.5 px-4 rounded text-sm flex items-center space-x-1.5 transition-colors disabled:opacity-60"
                 >
-                  {downloading ? (
-                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                  ) : (
-                    <Download className="h-3.5 w-3.5" />
-                  )}
+                  {downloading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Download className="h-3.5 w-3.5" />}
                   <span>{downloading ? 'Generating...' : 'Download PDF'}</span>
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 text-sm">
               <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Candidate Details</h4>
-                <div className="mt-2 space-y-1">
-                  <p className="font-bold text-gray-900 text-base">{result.certificate.request.employeeName}</p>
-                  <p className="text-gray-600">{result.certificate.request.employeeEmail}</p>
-                  <p className="text-gray-600">Tenure: {result.certificate.request.duration}</p>
-                </div>
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Candidate</h4>
+                <p className="font-bold text-gray-900">{result.certificate.request.employeeName}</p>
+                <p className="text-gray-500">{result.certificate.request.employeeEmail}</p>
+                <p className="text-gray-500">Tenure: {result.certificate.request.duration}</p>
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Issuer Organization</h4>
-                <div className="mt-2 space-y-1">
-                  <p className="font-bold text-gray-900">CertifyPro Enterprise</p>
-                  <p className="text-gray-600">Verified Skills: <span className="font-semibold text-gray-900">{result.certificate.skillsVerified}</span></p>
-                </div>
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Issuer</h4>
+                <p className="font-bold text-gray-900">CertifyPro Enterprise</p>
+                <p className="text-gray-500">Skills: <span className="font-semibold text-gray-700">{result.certificate.skillsVerified}</span></p>
               </div>
-              <div className="md:col-span-2 border-t border-gray-100 pt-6">
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Cryptographic Audit Proof</h4>
-                <div className="bg-gray-50 rounded p-4 font-mono text-xs space-y-2 border border-gray-100 text-gray-700">
-                  <p className="break-all"><strong>PDF File Hash (SHA-256):</strong> {result.certificate.sha256Hash}</p>
-                  <p className="break-all"><strong>On-Chain Anchor Hash:</strong> {result.blockchain.pdfHash}</p>
-                  <p className="break-all"><strong>Smart Contract Transaction:</strong> {result.blockchain.transactionHash}</p>
-                  <p><strong>Contract Signer/Issuer:</strong> {result.blockchain.issuer}</p>
-                  <p><strong>Anchored Timestamp:</strong> {new Date(result.blockchain.timestamp).toLocaleString()}</p>
+              <div className="md:col-span-2 border-t border-gray-100 pt-5">
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Cryptographic Proof</h4>
+                <div className="bg-gray-50 rounded p-4 font-mono text-xs space-y-1.5 border border-gray-100 text-gray-600">
+                  <p className="break-all"><strong>PDF Hash (SHA-256):</strong> {result.certificate.sha256Hash}</p>
+                  <p className="break-all"><strong>On-Chain Hash:</strong> {result.blockchain.pdfHash}</p>
+                  <p className="break-all"><strong>Transaction:</strong> {result.blockchain.transactionHash}</p>
+                  <p><strong>Issuer Wallet:</strong> {result.blockchain.issuer}</p>
+                  <p><strong>Anchored:</strong> {new Date(result.blockchain.timestamp).toLocaleString()}</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* ======== PROFESSIONAL CERTIFICATE PREVIEW ======== */}
+          {/* ===== CLEAN PROFESSIONAL CERTIFICATE ===== */}
           <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-5">Certificate Preview</h3>
 
-            {/* Certificate Card — captured by html2canvas for local PDF download */}
             <div
               ref={certRef}
-              className="relative max-w-3xl mx-auto overflow-hidden rounded-lg"
-              style={{
-                background: 'linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%)',
-                border: '2px solid #15803d',
-                boxShadow: '0 8px 40px rgba(21,128,61,0.12)',
-              }}
+              className="relative max-w-3xl mx-auto bg-white overflow-hidden"
+              style={{ border: '1px solid #e5e7eb', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}
             >
-              {/* Decorative corner elements */}
-              <div className="absolute top-0 left-0 w-16 h-16 border-l-4 border-t-4 border-yellow-500 rounded-tl-lg" />
-              <div className="absolute top-0 right-0 w-16 h-16 border-r-4 border-t-4 border-yellow-500 rounded-tr-lg" />
-              <div className="absolute bottom-0 left-0 w-16 h-16 border-l-4 border-b-4 border-yellow-500 rounded-bl-lg" />
-              <div className="absolute bottom-0 right-0 w-16 h-16 border-r-4 border-b-4 border-yellow-500 rounded-br-lg" />
-
-              {/* Top Banner */}
+              {/* Left green accent bar */}
               <div
-                className="px-10 pt-7 pb-4 flex items-center justify-between"
-                style={{ borderBottom: '2px solid #dcfce7' }}
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="h-8 w-8 bg-emerald-700 rounded-full flex items-center justify-center">
-                    <GraduationCap className="h-4 w-4 text-white" />
+                className="absolute left-0 top-0 bottom-0 w-2"
+                style={{ background: 'linear-gradient(180deg, #14532d, #15803d)' }}
+              />
+
+              <div className="pl-10 pr-10 pt-10 pb-8">
+                {/* Header: Logo | Certificate ID + Date */}
+                <div className="flex items-start justify-between mb-8">
+                  <div className="flex items-center space-x-2">
+                    <ShieldCheck className="h-5 w-5 text-emerald-700 flex-shrink-0" />
+                    <div>
+                      <p className="text-emerald-800 font-bold text-sm tracking-wide">CertifyPro</p>
+                      <p className="text-gray-400 text-[9px] uppercase tracking-widest">Blockchain-Verified Certificate</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-emerald-800 font-extrabold text-sm tracking-wide leading-none">CertifyPro</p>
-                    <p className="text-emerald-600 text-[9px] uppercase tracking-widest font-semibold">Chain of Trust</p>
+                  <div className="text-right">
+                    <p className="text-[9px] text-gray-400 uppercase tracking-widest">Certificate ID</p>
+                    <p className="text-[10px] font-mono text-gray-600 mt-0.5">{result.certificate.certificateId}</p>
+                    <p className="text-[9px] text-gray-400 mt-1">
+                      {new Date(result.certificate.issuedDate).toLocaleDateString('en-IN', {
+                        day: 'numeric', month: 'long', year: 'numeric'
+                      })}
+                    </p>
                   </div>
                 </div>
 
-                {/* Seal / Badge */}
-                <div
-                  className="flex flex-col items-center justify-center h-16 w-16 rounded-full border-4 border-yellow-500"
-                  style={{ background: 'linear-gradient(135deg, #15803d, #166534)' }}
-                >
-                  <Award className="h-5 w-5 text-yellow-300" />
-                  <p className="text-yellow-200 text-[7px] font-bold uppercase tracking-wider mt-0.5">Certified</p>
+                {/* Section Divider */}
+                <div className="flex items-center mb-8">
+                  <div className="flex-1 h-px bg-gray-200" />
+                  <span className="mx-4 text-[9px] font-bold uppercase tracking-widest text-gray-400 whitespace-nowrap">
+                    Certificate of Experience
+                  </span>
+                  <div className="flex-1 h-px bg-gray-200" />
                 </div>
 
-                <p className="text-gray-500 text-xs uppercase tracking-widest font-semibold">
-                  CertifyPro Enterprise
-                </p>
-              </div>
-
-              {/* Main Body */}
-              <div className="px-10 py-6 text-center">
-                {/* Decorative line */}
-                <div className="flex items-center justify-center space-x-3 mb-4">
-                  <div className="flex-1 h-px bg-gradient-to-r from-transparent to-yellow-400" />
-                  <span className="text-yellow-500 text-xs font-bold tracking-widest uppercase">Certificate of Experience</span>
-                  <div className="flex-1 h-px bg-gradient-to-l from-transparent to-yellow-400" />
-                </div>
-
-                <p className="text-gray-400 text-xs italic mb-2">This certificate is proudly presented to</p>
-
-                {/* Candidate Name */}
-                <div className="relative inline-block mb-4">
-                  <p
-                    className="text-3xl font-extrabold tracking-tight pb-1"
-                    style={{ color: '#14532d', fontFamily: 'Georgia, serif' }}
+                {/* Name Block */}
+                <div className="text-center mb-6">
+                  <p className="text-xs text-gray-400 italic mb-3">This is to certify that</p>
+                  <h1
+                    className="text-4xl font-bold text-gray-900 tracking-tight mb-1"
+                    style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
                   >
                     {result.certificate.request.employeeName}
-                  </p>
-                  <div className="h-0.5 bg-gradient-to-r from-transparent via-yellow-500 to-transparent rounded" />
+                  </h1>
+                  <p className="text-xs text-gray-400">{result.certificate.request.employeeEmail}</p>
                 </div>
 
-                <p className="text-gray-600 text-xs max-w-lg mx-auto leading-6 mb-4">
-                  In recognition of their exceptional contribution and dedication to the organization during the tenure of{' '}
-                  <strong className="text-gray-800">{result.certificate.request.duration}</strong>, maintaining an exemplary
-                  attendance rate of{' '}
-                  <strong className="text-gray-800">{result.certificate.request.attendance}%</strong>.
+                {/* Body Text */}
+                <p className="text-sm text-gray-600 text-center leading-7 max-w-lg mx-auto mb-7">
+                  has successfully served and contributed to{' '}
+                  <strong className="text-gray-800">CertifyPro Enterprise</strong> during the
+                  tenure of <strong className="text-gray-800">{result.certificate.request.duration}</strong>, maintaining
+                  an exemplary attendance of <strong className="text-gray-800">{result.certificate.request.attendance}%</strong>.
                 </p>
 
                 {/* Skills */}
-                <div className="flex flex-wrap justify-center gap-2 mb-6">
-                  {result.certificate.skillsVerified.split(',').map((skill: string, i: number) => (
-                    <span
-                      key={i}
-                      className="flex items-center space-x-1 bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"
-                    >
-                      <CheckCircle className="h-2.5 w-2.5" />
-                      <span>{skill.trim()}</span>
-                    </span>
-                  ))}
-                </div>
-
-                {/* Signature Row */}
-                <div
-                  className="flex items-end justify-between px-6 pt-4 mt-2"
-                  style={{ borderTop: '1px dashed #bbf7d0' }}
-                >
-                  {/* Left: Authorized Signatory */}
-                  <div className="text-center w-36">
-                    <div className="h-8 flex items-end justify-center mb-1">
-                      <p
-                        className="text-sm font-bold italic"
-                        style={{ color: '#15803d', fontFamily: 'cursive' }}
+                <div className="mb-8">
+                  <p className="text-center text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-3">
+                    Skills Verified &amp; Endorsed
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {result.certificate.skillsVerified.split(',').map((skill: string, i: number) => (
+                      <span
+                        key={i}
+                        className="text-[10px] font-semibold uppercase tracking-wider px-4 py-1.5"
+                        style={{ background: '#f0fdf4', color: '#14532d', border: '1px solid #bbf7d0' }}
                       >
-                        HR Admin
-                      </p>
-                    </div>
-                    <div className="border-t border-gray-300 pt-1">
-                      <p className="text-[9px] font-bold text-gray-600 uppercase tracking-wide">Authorized Signatory</p>
-                      <p className="text-[9px] text-gray-400">CertifyPro Enterprise</p>
-                    </div>
+                        {skill.trim()}
+                      </span>
+                    ))}
                   </div>
+                </div>
 
-                  {/* Center: QR Code — dynamically generated */}
-                  <div className="flex flex-col items-center">
-                    <div
-                      className="w-20 h-20 bg-white border-2 border-emerald-300 rounded-lg overflow-hidden shadow-sm p-1"
+                {/* Thin separator */}
+                <div className="h-px bg-gray-100 mb-6" />
+
+                {/* Footer: Signature | QR Code | Blockchain stamp */}
+                <div className="flex items-end justify-between">
+                  <div>
+                    <p
+                      className="text-sm font-bold italic text-gray-700 mb-1"
+                      style={{ fontFamily: 'Georgia, serif' }}
                     >
-                      <QRCodeImage value={verificationUrl} size={100} />
-                    </div>
-                    <p className="text-[8px] text-gray-400 mt-1 font-mono">Scan to verify</p>
+                      HR Admin
+                    </p>
+                    <div className="w-24 h-px bg-gray-400 mb-1" />
+                    <p className="text-[9px] text-gray-500 uppercase tracking-wider">Authorized Signatory</p>
+                    <p className="text-[9px] text-gray-400">CertifyPro Enterprise</p>
                   </div>
 
-                  {/* Right: Blockchain Verifier */}
-                  <div className="text-center w-36">
-                    <div className="h-8 flex items-end justify-center mb-1">
-                      <ShieldCheck className="h-5 w-5 text-emerald-600" />
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 border border-gray-200 bg-white p-0.5">
+                      <QRCodeImage value={verificationUrl} size={80} />
                     </div>
-                    <div className="border-t border-gray-300 pt-1">
-                      <p className="text-[9px] font-bold text-gray-600 uppercase tracking-wide">Blockchain Verifier</p>
-                      <p className="text-[9px] text-gray-400">Smart Contract Audited</p>
+                    <p className="text-[8px] text-gray-400 mt-1">Scan to verify</p>
+                  </div>
+
+                  <div className="text-right">
+                    <div className="flex items-center justify-end space-x-1 mb-1">
+                      <CheckCircle className="h-3 w-3 text-emerald-600" />
+                      <span className="text-[9px] font-bold text-emerald-700 uppercase tracking-wider">
+                        Blockchain Verified
+                      </span>
                     </div>
+                    <p className="text-[9px] text-gray-400 font-mono max-w-[150px] text-right break-all">
+                      {result.blockchain.transactionHash?.slice(0, 24)}...
+                    </p>
+                    <p className="text-[9px] text-gray-400 mt-0.5">Polygon Smart Contract</p>
                   </div>
                 </div>
               </div>
 
-              {/* Footer Strip */}
+              {/* Bottom emerald stripe */}
               <div
-                className="px-8 py-2.5 flex items-center justify-between text-[8px]"
-                style={{ background: 'linear-gradient(90deg, #14532d, #166534)', color: '#bbf7d0' }}
-              >
-                <span className="font-mono">Cert ID: {result.certificate.certificateId}</span>
-                <span className="flex items-center space-x-1 font-bold tracking-wider uppercase">
-                  <CheckCircle className="h-2.5 w-2.5 text-yellow-300" />
-                  <span className="text-yellow-300">Blockchain Verified</span>
-                </span>
-                <span className="font-mono">Issued: {new Date(result.certificate.issuedDate).toLocaleDateString()}</span>
-              </div>
+                className="h-1.5"
+                style={{ background: 'linear-gradient(90deg, #14532d, #16a34a)' }}
+              />
             </div>
           </div>
         </div>
@@ -363,7 +333,7 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
   // Render public version if not logged in
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col font-sans">
-      <header className="border-b border-gray-100 py-4 px-8 bg-white flex items-center justify-between font-sans">
+      <header className="border-b border-gray-100 py-4 px-8 bg-white flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2 text-emerald-700">
           <GraduationCap className="h-9 w-9" />
           <span className="text-2xl font-bold tracking-tight">CertifyPro</span>
@@ -380,12 +350,12 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
 
       <main className="flex-1 flex flex-col items-center py-16 px-4 max-w-4xl mx-auto w-full">
         {isLoggedIn && (
-          <div className="w-full max-w-xl text-left mb-6">
+          <div className="w-full text-left mb-6">
             <Link
               to="/dashboard"
-              className="inline-flex items-center text-xs font-semibold text-emerald-700 hover:text-emerald-800 space-x-1 hover:underline"
+              className="inline-flex items-center text-xs font-semibold text-emerald-700 hover:underline"
             >
-              <span>← Back to Dashboard Profile</span>
+              ← Back to Dashboard
             </Link>
           </div>
         )}
