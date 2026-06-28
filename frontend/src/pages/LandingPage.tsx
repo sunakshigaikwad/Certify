@@ -378,7 +378,7 @@ export const LandingPage: React.FC = () => {
           <Link to="/login" className="text-slate-700 hover:text-emerald-855 font-bold text-sm transition-colors">Evaluator Portal</Link>
           <div className="h-4 w-px bg-slate-350"></div>
           <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 px-5 rounded text-sm transition-all duration-150 shadow hover:shadow-md border border-emerald-800">
-            Register Organization
+            Register
           </Link>
         </nav>
 
@@ -437,7 +437,7 @@ export const LandingPage: React.FC = () => {
             className="pt-4 flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto"
           >
             <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3.5 px-8 rounded text-sm transition-all duration-150 shadow-md hover:shadow-lg text-center border border-emerald-800">
-              Register Organization
+              Register Now
             </Link>
             <Link to="/verify" className="bg-white hover:bg-slate-50 text-slate-800 border border-slate-350 font-bold py-3.5 px-8 rounded text-sm transition-all duration-150 shadow-sm text-center">
               Verify Certificate
