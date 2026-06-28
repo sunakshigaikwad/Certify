@@ -88,7 +88,7 @@ export class RequestsController {
   }
 
   @Get(':id/ai-analysis')
-  @Roles('ADMIN', 'EVALUATOR')
+  @Roles('ADMIN', 'EVALUATOR', 'EMPLOYEE')
   @ApiOperation({ summary: 'Retrieve AI pre-validated skill evaluation and rating analysis' })
   async getAiAnalysis(@Param('id') id: string) {
     return this.requestsService.getAiAnalysis(id);
