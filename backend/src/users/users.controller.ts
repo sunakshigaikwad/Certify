@@ -40,4 +40,16 @@ export class UsersController {
   async deleteUser(@Param('id') userId: string) {
     return this.usersService.deleteUser(userId);
   }
+
+  @Patch('profile/update')
+  @ApiOperation({ summary: 'Update current user profile info' })
+  async updateProfile(@GetUser() user: any, @Body() body: { name?: string; designation?: string }) {
+    return this.usersService.updateProfile(user.id, body);
+  }
+
+  @Patch('profile/change-password')
+  @ApiOperation({ summary: 'Change current user password' })
+  async changePassword(@GetUser() user: any, @Body() body: any) {
+    return this.usersService.changePassword(user.id, body);
+  }
 }

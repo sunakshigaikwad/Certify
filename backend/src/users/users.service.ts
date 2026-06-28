@@ -67,4 +67,35 @@ export class UsersService {
     }
     return this.prisma.user.delete({ where: { id: userId } });
   }
+
+  async updateProfile(userId: string, data: { name?: string; designation?: string }) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        name: data.name ?? user.name,
+        designation: data.designation ?? user.designation,
+      },
+    });
+  }
+
+  async changePassword(userId: string, data: any) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    const isMatch = await bcrypt.compare(data.oldPassword, user.passwordHash);
+    if (!isMatch) {
+      throw new ConflictException('Incorrect old password');
+    }
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(data.newPassword, salt);
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: { passwordHash },
+    });
+  }
 }
