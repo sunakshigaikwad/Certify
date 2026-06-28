@@ -28,71 +28,138 @@ const CertificateCard: React.FC<{ cert: any; blockchainData: any; cardRef: React
   return (
     <div
       ref={cardRef}
-      className="relative bg-white overflow-hidden"
-      style={{ border: '1px solid #e5e7eb', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}
+      className="relative bg-white select-none shrink-0"
+      style={{
+        width: '800px',
+        height: '565px',
+        backgroundColor: '#022c16',
+        padding: '16px',
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.12)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}
     >
-      {/* Left accent bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-2" style={{ background: 'linear-gradient(180deg, #14532d, #15803d)' }} />
+      {/* Top-Right Corner Wavy Shapes (Gold & Green) */}
+      <svg className="absolute top-0 right-0 w-64 h-64 pointer-events-none z-10" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M80 0C130 60 170 120 250 140V0H80Z" fill="#011c0e" />
+        <path d="M80 0C130 60 170 120 250 140" stroke="#d9780f" strokeWidth="4" />
+        
+        <path d="M120 0C160 50 190 90 250 105V0H120Z" fill="#14532d" />
+        <path d="M120 0C160 50 190 90 250 105" stroke="#fbbf24" strokeWidth="2.5" />
+        
+        <path d="M160 0C190 40 210 60 250 70V0H160Z" fill="#16a34a" />
+        <path d="M160 0C190 40 210 60 250 70" stroke="#fcd34d" strokeWidth="1" />
+      </svg>
 
-      <div className="pl-10 pr-10 pt-10 pb-8">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-8">
+      {/* Bottom-Left Corner Wavy Shapes (Gold & Green) */}
+      <svg className="absolute bottom-0 left-0 w-64 h-64 pointer-events-none z-10" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 170C80 190 120 210 170 250H0V170Z" fill="#011c0e" />
+        <path d="M0 170C80 190 120 210 170 250" stroke="#d9780f" strokeWidth="4" />
+        
+        <path d="M0 195C60 210 90 220 130 250H0V195Z" fill="#14532d" />
+        <path d="M0 195C60 210 90 220 130 250" stroke="#fbbf24" strokeWidth="2.5" />
+        
+        <path d="M0 220C40 230 60 235 90 250H0V220Z" fill="#16a34a" />
+        <path d="M0 220C40 230 60 235 90 250" stroke="#fcd34d" strokeWidth="1" />
+      </svg>
+
+      {/* Inner white container representing the certificate face */}
+      <div className="w-full h-full bg-white relative p-10 flex flex-col justify-between" style={{ zIndex: 5 }}>
+        
+        {/* Decorative Frame Overlay */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 768 533" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M 40 15 L 728 15 A 25 25 0 0 0 753 40 L 753 493 A 25 25 0 0 0 728 518 L 40 518 A 25 25 0 0 0 15 493 L 15 40 A 25 25 0 0 0 40 15 Z"
+            stroke="#d97706"
+            strokeWidth="3.5"
+          />
+          <path
+            d="M 45 20 L 723 20 A 20 20 0 0 0 743 40 L 743 493 A 20 20 0 0 0 723 513 L 45 513 A 20 20 0 0 0 25 493 L 25 40 A 20 20 0 0 0 45 20 Z"
+            stroke="#fbbf24"
+            strokeWidth="1.5"
+          />
+        </svg>
+
+        {/* Header Row */}
+        <div className="flex items-start justify-between relative z-10">
           <div className="flex items-center space-x-2">
-            <ShieldCheck className="h-5 w-5 text-emerald-700 flex-shrink-0" />
+            <ShieldCheck className="h-6 w-6 text-emerald-800 flex-shrink-0" />
             <div>
-              <p className="text-emerald-800 font-bold text-sm tracking-wide">CertifyPro</p>
-              <p className="text-gray-400 text-[9px] uppercase tracking-widest">Blockchain-Verified Certificate</p>
+              <p className="text-emerald-900 font-extrabold text-base tracking-wide" style={{ fontFamily: 'sans-serif' }}>
+                CertifyPro
+              </p>
+              <p className="text-gray-400 text-[9px] uppercase tracking-widest" style={{ fontFamily: 'sans-serif' }}>
+                Chain of Trust
+              </p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-[9px] text-gray-400 uppercase tracking-widest">Certificate ID</p>
-            <p className="text-[10px] font-mono text-gray-600 mt-0.5">{cert.certificateId}</p>
-            <p className="text-[9px] text-gray-400 mt-1">
-              {new Date(cert.issuedDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+            <p className="text-[9px] text-gray-400 uppercase tracking-widest font-semibold" style={{ fontFamily: 'sans-serif' }}>
+              Certificate ID
+            </p>
+            <p className="text-[11px] font-mono text-gray-700 mt-0.5 font-bold">
+              {cert.certificateId}
+            </p>
+            <p className="text-[10px] text-gray-500 mt-1" style={{ fontFamily: 'sans-serif' }}>
+              {new Date(cert.issuedDate).toLocaleDateString('en-IN', {
+                day: 'numeric', month: 'long', year: 'numeric'
+              })}
             </p>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="flex items-center mb-8">
-          <div className="flex-1 h-px bg-gray-200" />
-          <span className="mx-4 text-[9px] font-bold uppercase tracking-widest text-gray-400 whitespace-nowrap">
-            Certificate of Experience
-          </span>
-          <div className="flex-1 h-px bg-gray-200" />
+        {/* Certificate Title Banner */}
+        <div className="text-center relative z-10 my-1">
+          <div className="flex items-center justify-center space-x-4 mb-2">
+            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-amber-500" />
+            <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-amber-600" style={{ fontFamily: 'sans-serif' }}>
+              Certificate of Experience
+            </span>
+            <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-amber-500" />
+          </div>
+          <p className="text-[11px] text-gray-400 italic font-medium" style={{ fontFamily: 'sans-serif' }}>
+            This document certifies that
+          </p>
         </div>
 
-        {/* Name */}
-        <div className="text-center mb-6">
-          <p className="text-xs text-gray-400 italic mb-3">This is to certify that</p>
+        {/* Name of Employee */}
+        <div className="text-center relative z-10">
           <h1
-            className="text-4xl font-bold text-gray-900 tracking-tight mb-1"
-            style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+            className="text-4xl font-extrabold text-emerald-955 mb-1 tracking-tight"
+            style={{ fontFamily: 'Georgia, "Times New Roman", serif', textShadow: '0px 1px 1px rgba(0,0,0,0.1)' }}
           >
             {cert.request?.employeeName}
           </h1>
-          <p className="text-xs text-gray-400">{cert.request?.employeeEmail}</p>
+          <p className="text-[11px] text-gray-500 font-medium" style={{ fontFamily: 'sans-serif' }}>
+            {cert.request?.employeeEmail}
+          </p>
         </div>
 
-        {/* Body */}
-        <p className="text-sm text-gray-600 text-center leading-7 max-w-lg mx-auto mb-7">
-          has successfully served and contributed to{' '}
-          <strong className="text-gray-800">CertifyPro Enterprise</strong> during the tenure of{' '}
-          <strong className="text-gray-800">{cert.request?.duration}</strong>, maintaining an exemplary
-          attendance of <strong className="text-gray-800">{cert.request?.attendance}%</strong>.
+        {/* Description Text */}
+        <p
+          className="text-center text-[13px] text-gray-600 leading-relaxed max-w-xl mx-auto relative z-10"
+          style={{ fontFamily: 'sans-serif' }}
+        >
+          has successfully completed their tenure at <strong className="text-emerald-900">CertifyPro Enterprise</strong> for a duration of <strong className="text-gray-800">{cert.request?.duration}</strong>. During this period, their performance was highly satisfactory, maintaining an exemplary attendance rate of <strong className="text-gray-800">{cert.request?.attendance}%</strong>.
         </p>
 
-        {/* Skills */}
-        <div className="mb-8">
-          <p className="text-center text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-3">
+        {/* Skills Endorsed */}
+        <div className="relative z-10">
+          <p className="text-center text-[9px] font-bold uppercase tracking-wider text-gray-400 mb-2" style={{ fontFamily: 'sans-serif' }}>
             Skills Verified &amp; Endorsed
           </p>
           <div className="flex flex-wrap justify-center gap-2">
             {(cert.skillsVerified || '').split(',').map((skill: string, i: number) => (
               <span
                 key={i}
-                className="text-[10px] font-semibold uppercase tracking-wider px-4 py-1.5"
-                style={{ background: '#f0fdf4', color: '#14532d', border: '1px solid #bbf7d0' }}
+                className="text-[10px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-sm"
+                style={{
+                  fontFamily: 'sans-serif',
+                  background: '#f0fdf4',
+                  color: '#065f46',
+                  border: '1px solid #a7f3d0',
+                  letterSpacing: '0.05em'
+                }}
               >
                 {skill.trim()}
               </span>
@@ -100,42 +167,53 @@ const CertificateCard: React.FC<{ cert: any; blockchainData: any; cardRef: React
           </div>
         </div>
 
-        <div className="h-px bg-gray-100 mb-6" />
+        {/* Divider line inside frame */}
+        <div className="h-px bg-gray-100 w-11/12 mx-auto relative z-10 my-1" />
 
-        {/* Footer */}
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="text-sm font-bold italic text-gray-700 mb-1" style={{ fontFamily: 'Georgia, serif' }}>
+        {/* Footer Row: Signatures + QR + Blockchain stamp */}
+        <div className="flex items-end justify-between px-4 relative z-10">
+          {/* Authorized Signatory */}
+          <div className="w-32">
+            <p className="text-sm font-extrabold text-gray-800 mb-0.5" style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic' }}>
               HR Admin
             </p>
-            <div className="w-24 h-px bg-gray-400 mb-1" />
-            <p className="text-[9px] text-gray-500 uppercase tracking-wider">Authorized Signatory</p>
-            <p className="text-[9px] text-gray-400">CertifyPro Enterprise</p>
+            <div className="w-24 h-px bg-gray-300 mb-1" />
+            <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wider" style={{ fontFamily: 'sans-serif' }}>
+              Authorized Signatory
+            </p>
+            <p className="text-[9px] text-gray-400" style={{ fontFamily: 'sans-serif' }}>
+              CertifyPro Enterprise
+            </p>
           </div>
 
+          {/* QR Code */}
           <div className="flex flex-col items-center">
-            <div className="w-16 h-16 border border-gray-200 bg-white p-0.5">
+            <div className="w-16 h-16 bg-white border border-gray-200 p-0.5 rounded shadow-sm">
               <QRCodeImage value={verificationUrl} size={80} />
             </div>
-            <p className="text-[8px] text-gray-400 mt-1">Scan to verify</p>
+            <p className="text-[8px] text-gray-400 mt-1 uppercase tracking-wider font-semibold" style={{ fontFamily: 'sans-serif' }}>
+              Scan to verify
+            </p>
           </div>
 
-          <div className="text-right">
-            <div className="flex items-center justify-end space-x-1 mb-1">
-              <CheckCircle className="h-3 w-3 text-emerald-600" />
-              <span className="text-[9px] font-bold text-emerald-700 uppercase tracking-wider">Blockchain Verified</span>
+          {/* Blockchain Seal */}
+          <div className="text-right w-44">
+            <div className="flex items-center justify-end space-x-1.5 mb-1">
+              <CheckCircle className="h-3.5 w-3.5 text-emerald-600 flex-shrink-0" />
+              <span className="text-[9px] font-bold text-emerald-800 uppercase tracking-wide" style={{ fontFamily: 'sans-serif' }}>
+                Blockchain Secured
+              </span>
             </div>
-            <p className="text-[9px] text-gray-400 font-mono max-w-[150px] text-right break-all">
+            <p className="text-[8.5px] text-gray-400 font-mono break-all leading-tight">
               {blockchainData?.transactionHash?.slice(0, 24) || cert.blockchainTxHash?.slice(0, 24)}...
             </p>
-            <p className="text-[9px] text-gray-400 mt-0.5">Polygon Smart Contract</p>
+            <p className="text-[9px] text-emerald-700/80 font-semibold uppercase tracking-wider mt-0.5" style={{ fontFamily: 'sans-serif' }}>
+              Polygon Smart Contract
+              </p>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Bottom stripe */}
-      <div className="h-1.5" style={{ background: 'linear-gradient(90deg, #14532d, #16a34a)' }} />
-    </div>
   );
 };
 
