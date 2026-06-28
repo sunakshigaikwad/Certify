@@ -66,7 +66,7 @@ export const EvaluatorDashboardPage: React.FC<EvaluatorDashboardPageProps> = ({ 
     setAiData(null);
     try {
       // Trigger AI analysis to pre-fill evaluation
-      const res = await axios.get(`http://localhost:5000/requests/${req.id}/ai-analysis`, {
+      const res = await axios.get(`${API_URL}/requests/${req.id}/ai-analysis`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setAiData(res.data);
@@ -105,7 +105,7 @@ export const EvaluatorDashboardPage: React.FC<EvaluatorDashboardPageProps> = ({ 
 
   const handleDecision = async (approved: boolean) => {
     try {
-      await axios.post(`http://localhost:5000/evaluations/${evalReq.id}`, {
+      await axios.post(`${API_URL}/evaluations/${evalReq.id}`, {
         ...ratings,
         comments,
         approved,

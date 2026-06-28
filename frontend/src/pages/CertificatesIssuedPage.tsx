@@ -42,7 +42,7 @@ export const CertificatesIssuedPage: React.FC<CertificatesIssuedPageProps> = ({ 
 
   const handleDownload = (pdfPath: string, filename: string) => {
     const link = document.createElement('a');
-    link.href = `http://localhost:5000${pdfPath}`;
+    link.href = `${API_URL}${pdfPath}`;
     link.setAttribute('download', filename);
     link.setAttribute('target', '_blank');
     document.body.appendChild(link);
@@ -51,7 +51,7 @@ export const CertificatesIssuedPage: React.FC<CertificatesIssuedPageProps> = ({ 
   };
 
   const handleView = (pdfPath: string) => {
-    window.open(`http://localhost:5000${pdfPath}`, '_blank');
+    window.open(`${API_URL}${pdfPath}`, '_blank');
   };
 
   return (

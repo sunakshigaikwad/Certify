@@ -42,7 +42,7 @@ export const EmployeeTrackPage: React.FC<EmployeeTrackPageProps> = ({ user, onLo
     setAiLoading(true);
     setAiReport(null);
     try {
-      const res = await axios.get(`http://localhost:5000/requests/${req.id}/ai-analysis`, {
+      const res = await axios.get(`${API_URL}/requests/${req.id}/ai-analysis`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setAiReport(res.data);
@@ -55,7 +55,7 @@ export const EmployeeTrackPage: React.FC<EmployeeTrackPageProps> = ({ user, onLo
 
   const handleDownload = (pdfPath: string, filename: string) => {
     const link = document.createElement('a');
-    link.href = `http://localhost:5000${pdfPath}`;
+    link.href = `${API_URL}${pdfPath}`;
     link.setAttribute('download', filename);
     link.setAttribute('target', '_blank');
     document.body.appendChild(link);

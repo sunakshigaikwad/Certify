@@ -68,7 +68,7 @@ export const IncomingRequestsPage: React.FC<IncomingRequestsPageProps> = ({ user
     
     try {
       const selectedEval = evaluators.find(e => e.id === selectedEvalId);
-      await axios.patch(`http://localhost:5000/requests/${selectedReq.id}/forward`, {
+      await axios.patch(`${API_URL}/requests/${selectedReq.id}/forward`, {
         skills: modalSkills,
         duration: modalDuration,
         attendance: modalAttendance,
@@ -88,7 +88,7 @@ export const IncomingRequestsPage: React.FC<IncomingRequestsPageProps> = ({ user
   const handleReject = async (reqId: string) => {
     if (!window.confirm('Are you sure you want to reject this request?')) return;
     try {
-      await axios.patch(`http://localhost:5000/requests/${reqId}/reject`, {}, {
+      await axios.patch(`${API_URL}/requests/${reqId}/reject`, {}, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       fetchData();

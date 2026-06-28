@@ -71,7 +71,7 @@ export const ManageUsersPage: React.FC<ManageUsersPageProps> = ({ user, onLogout
   const handleDelete = async (evalId: string) => {
     if (!window.confirm('Are you sure you want to delete this evaluator?')) return;
     try {
-      await axios.delete(`http://localhost:5000/users/${evalId}`, {
+      await axios.delete(`${API_URL}/users/${evalId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       fetchEvaluators();
@@ -83,7 +83,7 @@ export const ManageUsersPage: React.FC<ManageUsersPageProps> = ({ user, onLogout
   const handleToggleStatus = async (evalId: string, currentStatus: string) => {
     const nextStatus = currentStatus === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
     try {
-      await axios.patch(`http://localhost:5000/users/${evalId}/status`, {
+      await axios.patch(`${API_URL}/users/${evalId}/status`, {
         status: nextStatus,
       }, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }

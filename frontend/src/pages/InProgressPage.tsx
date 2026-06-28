@@ -47,7 +47,7 @@ export const InProgressPage: React.FC<InProgressPageProps> = ({ user, onLogout }
   const handleGenerateCertificate = async () => {
     setIssuing(true);
     try {
-      const res = await axios.post(`http://localhost:5000/certificates/issue/${confirmReq.id}`, {}, {
+      const res = await axios.post(`${API_URL}/certificates/issue/${confirmReq.id}`, {}, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       

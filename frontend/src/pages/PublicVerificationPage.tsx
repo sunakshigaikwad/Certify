@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { GraduationCap, ShieldCheck, Download, Search, AlertCircle, Calendar, FileText, CheckCircle } from 'lucide-react';
@@ -15,7 +16,7 @@ export const PublicVerificationPage: React.FC = () => {
     setErrorMsg(null);
     setResult(null);
     try {
-      const res = await axios.get(`http://localhost:5000/certificates/verify/${id}`);
+      const res = await axios.get(`${API_URL}/certificates/verify/${id}`);
       setResult(res.data);
     } catch (err: any) {
       setErrorMsg(err.response?.data?.message || 'Certificate not found. Verify ID formatting.');
@@ -39,7 +40,7 @@ export const PublicVerificationPage: React.FC = () => {
 
   const handleDownload = (pdfPath: string, filename: string) => {
     const link = document.createElement('a');
-    link.href = `http://localhost:5000${pdfPath}`;
+    link.href = `${API_URL}${pdfPath}`;
     link.setAttribute('download', filename);
     link.setAttribute('target', '_blank');
     document.body.appendChild(link);
@@ -198,7 +199,7 @@ export const PublicVerificationPage: React.FC = () => {
                     
                     {/* QR Code image overlay */}
                     <div className="w-16 h-16 border border-emerald-200 p-0.5 bg-white shrink-0 -mt-4">
-                      <img src={`http://localhost:5000${result.certificate.qrCodePath}`} alt="QR Verification Link" className="w-full h-full" />
+                      <img src={`${API_URL}${result.certificate.qrCodePath}`} alt="QR Verification Link" className="w-full h-full" />
                     </div>
 
                     <div className="text-center w-36 border-t border-gray-300 pt-1 text-[10px] text-gray-500">
