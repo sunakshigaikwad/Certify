@@ -10,10 +10,26 @@ interface LoginPageProps {
 }
 
 export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(localStorage.getItem('rememberMe') === 'true');
+
+  React.useEffect(() => {
+    if (rememberMe) {
+      const savedEmail = localStorage.getItem('savedEmail') || '';
+      const savedPassword = localStorage.getItem('savedPassword') 
+        ? atob(localStorage.getItem('savedPassword') || '') 
+        : '';
+      if (savedEmail) {
+        setValue('email', savedEmail);
+      }
+      if (savedPassword) {
+        setValue('password', savedPassword);
+      }
+    }
+  }, [rememberMe, setValue]);
 
   const onSubmit = async (data: any) => {
     setLoading(true);
@@ -23,6 +39,16 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         email: data.email,
         password: data.password,
       });
+
+      if (rememberMe) {
+        localStorage.setItem('rememberMe', 'true');
+        localStorage.setItem('savedEmail', data.email);
+        localStorage.setItem('savedPassword', btoa(data.password));
+      } else {
+        localStorage.removeItem('rememberMe');
+        localStorage.removeItem('savedEmail');
+        localStorage.removeItem('savedPassword');
+      }
 
       onLoginSuccess(res.data.access_token, res.data.user);
       
@@ -113,9 +139,11 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-emerald-700 focus:ring-emerald-600"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="h-4 w-4 rounded border-gray-300 text-emerald-700 focus:ring-emerald-600 cursor-pointer"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 cursor-pointer">
                   Remember me
                 </label>
               </div>
