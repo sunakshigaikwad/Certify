@@ -82,8 +82,8 @@ export const App: React.FC = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage onLoginSuccess={handleLoginSuccess} />} />
         <Route path="/register" element={<RegisterPage onRegisterSuccess={handleLoginSuccess} />} />
-        <Route path="/verify" element={<PublicVerificationPage />} />
-        <Route path="/verify/:certificateId" element={<PublicVerificationPage />} />
+        <Route path="/verify" element={<PublicVerificationPage user={user} onLogout={handleLogout} />} />
+        <Route path="/verify/:certificateId" element={<PublicVerificationPage user={user} onLogout={handleLogout} />} />
 
         {/* Protected Routes */}
         <Route path="/dashboard" element={
