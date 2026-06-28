@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,7 +24,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onRegisterSuccess })
     setErrorMsg(null);
     setSuccessMsg(null);
     try {
-      const res = await axios.post('http://localhost:5000/auth/register', {
+      const res = await axios.post(`${API_URL}/auth/register`, {
         name: data.name,
         email: data.email,
         password: data.password,

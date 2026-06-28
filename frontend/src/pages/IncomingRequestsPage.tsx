@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Sidebar } from '../components/Sidebar';
@@ -26,10 +27,10 @@ export const IncomingRequestsPage: React.FC<IncomingRequestsPageProps> = ({ user
     setRefreshing(true);
     try {
       const [reqsRes, evalsRes] = await Promise.all([
-        axios.get('http://localhost:5000/requests/incoming', {
+        axios.get(`${API_URL}/requests/incoming`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         }),
-        axios.get('http://localhost:5000/users/evaluators', {
+        axios.get(`${API_URL}/users/evaluators`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
       ]);

@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Sidebar } from '../components/Sidebar';
@@ -27,13 +28,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, onLogout }) 
       let requests: any[] = [];
       if (user.role === 'ADMIN') {
         const [incomingRes, progressRes, issuedRes] = await Promise.all([
-          axios.get('http://localhost:5000/requests/incoming', {
+          axios.get(`${API_URL}/requests/incoming`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           }),
-          axios.get('http://localhost:5000/requests/in-progress', {
+          axios.get(`${API_URL}/requests/in-progress`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           }),
-          axios.get('http://localhost:5000/certificates', {
+          axios.get(`${API_URL}/certificates`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           })
         ]);
@@ -68,7 +69,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, onLogout }) 
         })).slice(0, 5);
         setActivities(mapped);
       } else if (user.role === 'EMPLOYEE') {
-        const res = await axios.get('http://localhost:5000/requests/employee', {
+        const res = await axios.get(`${API_URL}/requests/employee`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
         const list = res.data || [];

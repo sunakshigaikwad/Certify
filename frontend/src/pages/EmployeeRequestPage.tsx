@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -45,7 +46,7 @@ export const EmployeeRequestPage: React.FC<EmployeeRequestPageProps> = ({ user, 
     }
 
     try {
-      await axios.post('http://localhost:5000/requests', formData, {
+      await axios.post(`${API_URL}/requests`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${localStorage.getItem('token')}`

@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -22,7 +23,7 @@ export const ManageUsersPage: React.FC<ManageUsersPageProps> = ({ user, onLogout
   const fetchEvaluators = async () => {
     setRefreshing(true);
     try {
-      const res = await axios.get('http://localhost:5000/users/evaluators', {
+      const res = await axios.get(`${API_URL}/users/evaluators`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setEvaluators(res.data || []);
@@ -43,7 +44,7 @@ export const ManageUsersPage: React.FC<ManageUsersPageProps> = ({ user, onLogout
     setErrorMsg(null);
     setCreatedUser(null);
     try {
-      const res = await axios.post('http://localhost:5000/users/evaluators', {
+      const res = await axios.post(`${API_URL}/users/evaluators`, {
         name: data.name,
         email: data.email,
         designation: data.designation,

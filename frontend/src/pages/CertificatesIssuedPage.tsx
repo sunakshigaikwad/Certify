@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Sidebar } from '../components/Sidebar';
@@ -17,7 +18,7 @@ export const CertificatesIssuedPage: React.FC<CertificatesIssuedPageProps> = ({ 
   const fetchCertificates = async () => {
     setRefreshing(true);
     try {
-      const res = await axios.get('http://localhost:5000/certificates', {
+      const res = await axios.get(`${API_URL}/certificates`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       // If employee, only show their own certificates

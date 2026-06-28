@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Sidebar } from '../components/Sidebar';
@@ -37,12 +38,12 @@ export const EvaluatorDashboardPage: React.FC<EvaluatorDashboardPageProps> = ({ 
     setRefreshing(true);
     try {
       if (completedView) {
-        const res = await axios.get('http://localhost:5000/evaluations/completed', {
+        const res = await axios.get(`${API_URL}/evaluations/completed`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
         setCompleted(res.data || []);
       } else {
-        const res = await axios.get('http://localhost:5000/evaluations/pending', {
+        const res = await axios.get(`${API_URL}/evaluations/pending`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
         setRequests(res.data || []);

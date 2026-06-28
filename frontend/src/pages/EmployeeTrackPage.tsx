@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Sidebar } from '../components/Sidebar';
@@ -20,7 +21,7 @@ export const EmployeeTrackPage: React.FC<EmployeeTrackPageProps> = ({ user, onLo
   const fetchRequests = async () => {
     setRefreshing(true);
     try {
-      const res = await axios.get('http://localhost:5000/requests/employee', {
+      const res = await axios.get(`${API_URL}/requests/employee`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setRequests(res.data || []);

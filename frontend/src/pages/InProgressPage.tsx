@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Sidebar } from '../components/Sidebar';
@@ -22,7 +23,7 @@ export const InProgressPage: React.FC<InProgressPageProps> = ({ user, onLogout }
   const fetchInProgress = async () => {
     setRefreshing(true);
     try {
-      const res = await axios.get('http://localhost:5000/requests/in-progress', {
+      const res = await axios.get(`${API_URL}/requests/in-progress`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setRequests(res.data || []);

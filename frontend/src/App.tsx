@@ -1,3 +1,4 @@
+import { API_URL } from './config';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
@@ -21,7 +22,7 @@ export const App: React.FC = () => {
 
   const fetchProfile = async (authToken: string) => {
     try {
-      const res = await axios.get('http://localhost:5000/auth/profile', {
+      const res = await axios.get(`${API_URL}/auth/profile`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       setUser(res.data);
