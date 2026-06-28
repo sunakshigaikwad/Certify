@@ -430,7 +430,7 @@ export const LandingPage: React.FC = () => {
               className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-950 leading-tight tracking-tight"
             >
               Chain of Trust <br />
-              <span className="bg-gradient-to-r from-emerald-805 via-emerald-600 to-teal-700 bg-clip-text text-transparent font-black text-3xl sm:text-4xl md:text-5xl">Secure and Transparent Digital Certificate Verification</span>
+              <span className="bg-gradient-to-r from-emerald-800 via-emerald-600 to-teal-700 bg-clip-text text-transparent font-black text-3xl sm:text-4xl md:text-5xl">Secure and Transparent Digital Certificate Verification</span>
             </motion.h1>
 
             <motion.p 
@@ -558,7 +558,7 @@ export const LandingPage: React.FC = () => {
                 <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <div className="h-8 w-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                      <FileText className="h-4 w-4 text-emerald-750" />
+                      <FileText className="h-4 w-4 text-emerald-700" />
                     </div>
                     <div>
                       <h4 className="text-[11px] font-extrabold text-slate-900 uppercase">Experience Certificate</h4>
@@ -575,7 +575,7 @@ export const LandingPage: React.FC = () => {
                 <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <div className="h-8 w-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                      <Cpu className="h-4 w-4 text-emerald-750 animate-spin-slow" />
+                      <Cpu className="h-4 w-4 text-emerald-700 animate-spin-slow" />
                     </div>
                     <div>
                       <h4 className="text-[11px] font-extrabold text-slate-900 uppercase">Smart Contract Registry</h4>
@@ -916,13 +916,13 @@ export const LandingPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center flex-1">
               {/* Text Info */}
               <div className="md:col-span-7 space-y-4 text-left">
-                <span className="text-xs font-bold text-emerald-805 uppercase tracking-wide block">
+                <span className="text-xs font-bold text-emerald-800 uppercase tracking-wide block">
                   {carouselSlides[activeSlide].subtitle}
                 </span>
-                <h3 className="text-xl md:text-2xl font-black text-slate-905 leading-snug">
+                <h3 className="text-xl md:text-2xl font-black text-slate-900 leading-snug">
                   {carouselSlides[activeSlide].title}
                 </h3>
-                <p className="text-xs md:text-sm text-slate-650 font-semibold leading-relaxed">
+                <p className="text-xs md:text-sm text-slate-600 font-semibold leading-relaxed">
                   {carouselSlides[activeSlide].desc}
                 </p>
                 <ul className="space-y-1.5 pt-2">
@@ -961,14 +961,14 @@ export const LandingPage: React.FC = () => {
               <div className="flex space-x-2">
                 <button
                   onClick={handlePrev}
-                  className="p-2 border border-slate-250 bg-white rounded-full text-slate-650 hover:text-emerald-700 hover:border-emerald-600 transition-colors shadow-sm"
+                  className="p-2 border border-slate-200 bg-white rounded-full text-slate-600 hover:text-emerald-700 hover:border-emerald-600 transition-colors shadow-sm"
                   title="Previous Slide"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="p-2 border border-slate-250 bg-white rounded-full text-slate-650 hover:text-emerald-700 hover:border-emerald-600 transition-colors shadow-sm"
+                  className="p-2 border border-slate-200 bg-white rounded-full text-slate-600 hover:text-emerald-700 hover:border-emerald-600 transition-colors shadow-sm"
                   title="Next Slide"
                 >
                   <ChevronRight className="h-4 w-4" />
@@ -983,10 +983,10 @@ export const LandingPage: React.FC = () => {
       <section className="py-24 px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="bg-emerald-100 border border-emerald-300 text-emerald-905 text-[10.5px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-xs">
+            <span className="bg-emerald-100 border border-emerald-300 text-emerald-900 text-[10.5px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-xs">
               Bento Architecture
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-905 tracking-tight mt-3">Platform Core Mechanics</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-3">Platform Core Mechanics</h2>
             <p className="text-slate-600 text-sm leading-relaxed font-semibold">
               Tailored integrations coordinating high-speed performance benchmarks and decentralization parameters.
             </p>
@@ -997,10 +997,10 @@ export const LandingPage: React.FC = () => {
             {/* Box 1 (Large Bento) */}
             <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 text-white rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-xl border border-emerald-900/20 min-h-[300px] hover:shadow-2xl transition-all text-left">
               <div className="h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center border border-white/20 mb-6 shrink-0 shadow-md">
-                <Shield className="h-6 w-6 text-emerald-350" />
+                <Shield className="h-6 w-6 text-emerald-300" />
               </div>
               <div className="space-y-2">
-                <span className="text-[10.5px] font-black text-emerald-355 uppercase tracking-widest block">Polygon Integration</span>
+                <span className="text-[10.5px] font-black text-emerald-300 uppercase tracking-widest block">Polygon Integration</span>
                 <h3 className="text-2xl font-black">Smart Contract Anchoring</h3>
                 <p className="text-slate-200 text-xs leading-relaxed max-w-md font-medium">
                   Anchors document fingerprint signatures directly to public smart contract registries. Once records are written on-chain, they remain immutable, making verification mathematically solid.
@@ -1009,8 +1009,8 @@ export const LandingPage: React.FC = () => {
             </div>
 
             {/* Box 2 (Small Bento) */}
-            <div className="bg-white border border-slate-250 rounded-2xl p-6 flex flex-col justify-between shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
-              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
+              <div className="h-12 w-12 bg-emerald-100 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
                 <Cpu className="h-6 w-6" />
               </div>
               <div className="space-y-2">
@@ -1023,8 +1023,8 @@ export const LandingPage: React.FC = () => {
             </div>
 
             {/* Box 3 (Small Bento) */}
-            <div className="bg-white border border-slate-250 rounded-2xl p-6 flex flex-col justify-between shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
-              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
+              <div className="h-12 w-12 bg-emerald-100 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
                 <Search className="h-6 w-6" />
               </div>
               <div className="space-y-2">
@@ -1037,18 +1037,17 @@ export const LandingPage: React.FC = () => {
             </div>
 
             {/* Box 4 (Large Bento) */}
-            <div className="bg-white border border-slate-250 rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
-              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-805 mb-6 shrink-0 shadow-sm">
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
+              <div className="h-12 w-12 bg-emerald-100 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
                 <Users className="h-6 w-6" />
               </div>
               <div className="space-y-2">
-                <span className="text-[10.5px] font-black text-emerald-805 uppercase tracking-widest block">Multi-Role Workspace</span>
+                <span className="text-[10.5px] font-black text-emerald-800 uppercase tracking-widest block">Multi-Role Workspace</span>
                 <h3 className="text-2xl font-black text-slate-900">Unified Coordination Pipelines</h3>
                 <p className="text-slate-700 text-xs leading-relaxed max-w-md font-semibold">
                   Unique portals tailored to isolate specific functionalities. Employees upload files, HR managers forward evaluation lists, evaluators adjust grades, and verifiers validate origins.
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
-                  <span className="bg-blue-105 text-blue-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-blue-200 shadow-sm">HR ADMIN</span>
                   <span className="bg-emerald-105 text-emerald-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-emerald-200 shadow-sm">EVALUATOR MANAGER</span>
                   <span className="bg-yellow-105 text-yellow-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-yellow-200 shadow-sm">EMPLOYEE</span>
                 </div>
