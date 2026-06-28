@@ -23,7 +23,11 @@ import {
   Check,
   Building,
   Users,
-  Award
+  Award,
+  Lock,
+  Globe,
+  FileCheck,
+  FileText
 } from 'lucide-react';
 import { API_URL } from '../config';
 
@@ -55,13 +59,13 @@ const LiveNetworkBackground: React.FC = () => {
       radius: number;
     }> = [];
 
-    const count = 45;
+    const count = 40;
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
         radius: Math.random() * 2 + 1,
       });
     }
@@ -70,7 +74,7 @@ const LiveNetworkBackground: React.FC = () => {
       ctx.clearRect(0, 0, width, height);
       
       // Draw connecting lines (vibrant emerald green with soft opacity)
-      ctx.strokeStyle = 'rgba(16, 185, 129, 0.12)';
+      ctx.strokeStyle = 'rgba(16, 185, 129, 0.08)';
       ctx.lineWidth = 1.0;
       for (let i = 0; i < particles.length; i++) {
         const p1 = particles[i];
@@ -87,7 +91,7 @@ const LiveNetworkBackground: React.FC = () => {
       }
 
       // Draw particle dots
-      ctx.fillStyle = 'rgba(4, 120, 87, 0.3)';
+      ctx.fillStyle = 'rgba(4, 120, 87, 0.25)';
       particles.forEach((p) => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
@@ -229,8 +233,8 @@ export const LandingPage: React.FC = () => {
         "Deterministic check matching binary decisions"
       ],
       visual: (
-        <div className="bg-slate-900 text-emerald-405 p-5 rounded-lg border border-slate-800 font-mono text-[11px] space-y-2.5 shadow-lg text-left">
-          <div className="flex items-center justify-between border-b border-slate-855 pb-2 text-[10px] text-slate-500">
+        <div className="bg-slate-900 text-emerald-400 p-5 rounded-lg border border-slate-800 font-mono text-[11px] space-y-2.5 shadow-lg text-left">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-2 text-[10px] text-slate-500">
             <span>[POLYGON AMOY REGISTER]</span>
             <span className="text-emerald-400 animate-pulse">● LIVE CONNECTION</span>
           </div>
@@ -314,7 +318,7 @@ export const LandingPage: React.FC = () => {
           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Workspace Roles Structure</span>
           <div className="space-y-2">
             {[
-              { role: 'HR Admin', desc: 'Forward queues & confirm PDF issue', color: 'bg-blue-50 text-blue-800 border-blue-100' },
+              { role: 'HR Admin', desc: 'Forward queues & confirm PDF issue', color: 'bg-blue-55/60 text-blue-800 border-blue-100' },
               { role: 'Team Evaluator', desc: 'Pre-filled AI rating & decisions', color: 'bg-emerald-55/60 text-emerald-800 border-emerald-100' },
               { role: 'Employee', desc: 'Submit letter scans & track status', color: 'bg-yellow-50 text-yellow-800 border-yellow-100' }
             ].map(r => (
@@ -367,16 +371,20 @@ export const LandingPage: React.FC = () => {
   return (
     <div className="bg-[#f8fafc] min-h-screen flex flex-col font-sans text-slate-800 selection:bg-emerald-500/20 selection:text-emerald-900">
       
-      {/* Sleek Glassmorphic Navbar */}
+      {/* Sleek Glassmorphic Navbar (Cryptian Style) */}
       <header className="border-b border-slate-200 py-4 px-8 bg-white/95 backdrop-blur-md fixed top-0 left-0 right-0 z-50 flex items-center justify-between shadow-sm transition-all duration-200">
         <div className="flex items-center space-x-2 text-emerald-700">
-          <GraduationCap className="h-9 w-9 text-emerald-600" />
-          <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-emerald-800 to-teal-700 bg-clip-text text-transparent">CertifyPro</span>
+          <GraduationCap className="h-9 w-9 text-emerald-650" />
+          <span className="text-2xl font-black tracking-tight bg-gradient-to-r from-emerald-800 to-teal-700 bg-clip-text text-transparent">CertifyPro</span>
         </div>
-             <div className="flex items-center space-x-6">
+        
+        <div className="flex items-center space-x-6">
           <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/verify" className="text-slate-700 hover:text-emerald-850 font-bold text-sm transition-colors">Verifier Portal</Link>
-            <Link to="/login" className="text-slate-700 hover:text-emerald-855 font-bold text-sm transition-colors">Evaluator Portal</Link>
+            <a href="#hero" className="text-slate-700 hover:text-emerald-700 font-bold text-sm transition-colors">Home</a>
+            <a href="#about" className="text-slate-700 hover:text-emerald-700 font-bold text-sm transition-colors">About</a>
+            <a href="#sandbox" className="text-slate-700 hover:text-emerald-700 font-bold text-sm transition-colors">Verify Sandbox</a>
+            <a href="#timeline" className="text-slate-700 hover:text-emerald-700 font-bold text-sm transition-colors">Pipeline</a>
+            <a href="#pillars" className="text-slate-700 hover:text-emerald-700 font-bold text-sm transition-colors">Pillars</a>
             <div className="h-4 w-px bg-slate-300"></div>
             <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 px-6 rounded-full text-sm transition-all duration-150 shadow hover:shadow-md border border-emerald-800 whitespace-nowrap shrink-0">
               Register
@@ -386,7 +394,7 @@ export const LandingPage: React.FC = () => {
           {/* Live operational node indicator */}
           <div className="flex items-center space-x-2 bg-emerald-100 border border-emerald-250 rounded-full px-3 py-1 shadow-sm shrink-0">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-450 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-650"></span>
             </span>
             <span className="text-[10px] text-emerald-900 font-extrabold tracking-wide uppercase hidden sm:inline">Polygon Nodes Operational</span>
@@ -395,71 +403,260 @@ export const LandingPage: React.FC = () => {
         </div>
       </header>
 
-      {/* GRAND HERO: Centered Typography & Dynamic Particle Network */}
-      <section className="relative pt-44 pb-32 px-6 bg-gradient-to-b from-emerald-50/40 via-white to-slate-50 border-b border-slate-200 overflow-hidden">
+      {/* SECTION 1: HERO / BANNER SECTION (Cryptian Split Layout) */}
+      <section id="hero" className="relative pt-44 pb-32 px-6 bg-gradient-to-b from-emerald-50/40 via-white to-slate-50 border-b border-slate-200 overflow-hidden">
         <LiveNetworkBackground />
         
         {/* Visual ambient gradients */}
-        <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-r from-emerald-200/20 to-teal-200/20 rounded-full blur-3xl pointer-events-none z-0"></div>
+        <div className="absolute top-24 left-1/4 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-r from-emerald-200/20 to-teal-200/20 rounded-full blur-3xl pointer-events-none z-0"></div>
 
-        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-6">
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center space-x-1.5 bg-emerald-100/90 border border-emerald-300 text-emerald-900 text-[10.5px] font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-sm"
-          >
-            <Sparkles className="h-3.5 w-3.5 text-emerald-700" />
-            <span>Cryptographic Trust Infrastructure</span>
-          </motion.div>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+          {/* Left Column: Headline and CTAs */}
+          <div className="lg:col-span-7 text-left space-y-6">
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center space-x-1.5 bg-emerald-100/90 border border-emerald-300 text-emerald-900 text-[10.5px] font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-xs"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-emerald-700 animate-pulse" />
+              <span>Decentralized Ledger Solution</span>
+            </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-950 leading-tight tracking-tight"
-          >
-            Chain of Trust <br />
-            <span className="bg-gradient-to-r from-emerald-800 via-emerald-600 to-teal-800 bg-clip-text text-transparent font-black text-3xl sm:text-4xl md:text-5xl">Secure and Transparent Digital Certificate Verification</span>
-          </motion.h1>
+            <motion.h1 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-950 leading-tight tracking-tight"
+            >
+              Chain of Trust <br />
+              <span className="bg-gradient-to-r from-emerald-805 via-emerald-600 to-teal-700 bg-clip-text text-transparent font-black text-3xl sm:text-4xl md:text-5xl">Secure and Transparent Digital Certificate Verification</span>
+            </motion.h1>
 
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-base sm:text-lg md:text-xl text-slate-700 leading-relaxed max-w-2xl mx-auto font-medium"
-          >
-            An enterprise verification ecosystem automating employee experience tracking, background AI skills parsing, and Polygon network immutable ledger anchoring.
-          </motion.p>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl font-medium"
+            >
+              An enterprise verification ecosystem automating employee experience tracking, background AI skills parsing, and Polygon network immutable ledger anchoring.
+            </motion.p>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="pt-4 flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto"
-          >
-            <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-md hover:shadow-lg text-center border border-emerald-800">
-              Register Now
-            </Link>
-            <Link to="/verify" className="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-sm text-center">
-              Verify Certificate
-            </Link>
-          </motion.div>
+            {/* Live operational parameters container (Cryptian Status Box) */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm max-w-md grid grid-cols-3 gap-4 text-center"
+            >
+              <div className="space-y-1">
+                <span className="text-[10px] text-slate-500 font-bold block uppercase">Network Gas</span>
+                <span className="font-extrabold text-sm text-emerald-700">~ 28 Gwei</span>
+              </div>
+              <div className="border-l border-slate-150 space-y-1">
+                <span className="text-[10px] text-slate-500 font-bold block uppercase">Active Orgs</span>
+                <span className="font-extrabold text-sm text-slate-900">450+ Sites</span>
+              </div>
+              <div className="border-l border-slate-150 space-y-1">
+                <span className="text-[10px] text-slate-500 font-bold block uppercase">Hash Blocks</span>
+                <span className="font-extrabold text-sm text-slate-900">#8,491K+</span>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="pt-4 flex flex-wrap gap-4"
+            >
+              <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-md hover:shadow-lg text-center border border-emerald-800">
+                Register Now
+              </Link>
+              <a href="#sandbox" className="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-sm text-center">
+                Query Sandbox
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Cryptian Animated CSS/SVG Node Network Visual */}
+          <div className="lg:col-span-5 flex justify-center relative">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative w-80 h-80 sm:w-96 sm:h-96"
+            >
+              {/* Pulsing visual core */}
+              <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
+              
+              {/* Interactive background rings */}
+              <div className="absolute inset-6 border border-dashed border-emerald-300/40 rounded-full animate-spin-slow"></div>
+              <div className="absolute inset-16 border border-emerald-250/30 rounded-full animate-spin-reverse"></div>
+              <div className="absolute inset-28 border border-dashed border-teal-300/50 rounded-full animate-spin-slow"></div>
+
+              {/* Center floating cryptographic shield */}
+              <motion.div 
+                animate={{ y: [0, -12, 0] }}
+                transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div className="h-44 w-44 bg-gradient-to-br from-emerald-600 to-teal-800 rounded-3xl shadow-2xl flex flex-col items-center justify-center p-6 text-white border border-white/20 relative">
+                  <ShieldCheck className="h-16 w-16 text-emerald-300 animate-bounce" />
+                  <span className="text-[10px] font-mono tracking-widest font-black uppercase mt-4 text-emerald-200">SEALED ON POLYGON</span>
+                  <div className="absolute -top-3 -right-3 h-8 w-8 bg-teal-500 rounded-full flex items-center justify-center border-2 border-white shadow animate-pulse">
+                    <Lock className="h-3.5 w-3.5 text-white" />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Surrounding Node Badges */}
+              <motion.div 
+                animate={{ x: [0, 8, 0], y: [0, -8, 0] }}
+                transition={{ repeat: Infinity, duration: 3.8, ease: "easeInOut" }}
+                className="absolute top-8 left-6 bg-white border border-slate-200 p-2.5 rounded-2xl shadow-md flex items-center space-x-2"
+              >
+                <Cpu className="h-4 w-4 text-emerald-600" />
+                <span className="text-[9px] font-black text-slate-800 uppercase">AI Parser</span>
+              </motion.div>
+
+              <motion.div 
+                animate={{ x: [0, -8, 0], y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut" }}
+                className="absolute bottom-10 right-6 bg-white border border-slate-200 p-2.5 rounded-2xl shadow-md flex items-center space-x-2"
+              >
+                <Database className="h-4 w-4 text-teal-600" />
+                <span className="text-[9px] font-black text-slate-800 uppercase">IPFS Node</span>
+              </motion.div>
+
+              <motion.div 
+                animate={{ y: [0, 10, 0] }}
+                transition={{ repeat: Infinity, duration: 5.0, ease: "easeInOut" }}
+                className="absolute top-1/2 -right-8 bg-white border border-slate-200 p-2.5 rounded-2xl shadow-md flex items-center space-x-2"
+              >
+                <Globe className="h-4 w-4 text-emerald-700" />
+                <span className="text-[9px] font-black text-slate-800 uppercase">Web3 RPC</span>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
+      </section>
 
-        {/* INTERACTIVE PLAYGROUND / SEARCH SANDBOX */}
-        <div className="max-w-3xl mx-auto mt-20 relative z-20">
+      {/* SECTION 2: ABOUT SECTION (Cryptian Split Detail) */}
+      <section id="about" className="py-24 px-6 bg-white border-b border-slate-200">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          
+          {/* Left Column: Visual graphic representing smart contract validation */}
+          <div className="lg:col-span-5 relative">
+            <div className="absolute inset-0 bg-emerald-50 rounded-3xl blur-3xl opacity-60"></div>
+            <div className="relative bg-slate-50 border border-slate-200 rounded-3xl p-8 shadow-xl space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+                <span className="text-xs font-mono font-bold text-slate-550">VERIFICATION PIPELINE BLOCK DIAGRAM</span>
+                <span className="h-2 w-2 bg-emerald-600 rounded-full animate-ping"></span>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="h-8 w-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                      <FileText className="h-4 w-4 text-emerald-750" />
+                    </div>
+                    <div>
+                      <h4 className="text-[11px] font-extrabold text-slate-900 uppercase">Experience Certificate</h4>
+                      <p className="text-[9px] text-slate-500">PDF Document Payload</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">SHA-256</span>
+                </div>
+
+                <div className="flex justify-center">
+                  <ArrowRight className="h-5 w-5 text-slate-400 rotate-90" />
+                </div>
+
+                <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="h-8 w-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                      <Cpu className="h-4 w-4 text-emerald-750 animate-spin-slow" />
+                    </div>
+                    <div>
+                      <h4 className="text-[11px] font-extrabold text-slate-900 uppercase">Smart Contract Registry</h4>
+                      <p className="text-[9px] text-slate-500">Anchor Ledger Signature</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono text-blue-800 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">POLYGON</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Platform narrative */}
+          <div className="lg:col-span-7 text-left space-y-6">
+            <span className="bg-emerald-100 border border-emerald-250 text-emerald-900 text-[10px] font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow-xs">
+              Trust Decentralization
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-905 tracking-tight mt-3">Platform Integrity Architecture</h2>
+            <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-semibold">
+              CertifyPro coordinates digital credentials and verifies experience records on a public decentralized ledger. We construct a secure bridge linking organizations, employee records, and validation requests.
+            </p>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-650 shrink-0" />
+                  <span className="font-extrabold text-xs text-slate-900 uppercase">Cryptographic Sealing</span>
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed font-medium">Anchoring SHA-256 hashes permanently on public blockchain registries.</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-650 shrink-0" />
+                  <span className="font-extrabold text-xs text-slate-900 uppercase">AI Competency Parsing</span>
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed font-medium">Automatic index parsing to accelerate manager technical evaluations.</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-650 shrink-0" />
+                  <span className="font-extrabold text-xs text-slate-900 uppercase">Encrypted QR Scans</span>
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed font-medium">Quick offline access to ledger states using responsive QR endpoints.</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-650 shrink-0" />
+                  <span className="font-extrabold text-xs text-slate-900 uppercase">Multi-Role Dashboards</span>
+                  
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed font-medium">Dedicated pipelines designed for Employees, HR Admins, and Evaluators.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* SECTION 3: INTERACTIVE PLAYGROUND / SEARCH SANDBOX */}
+      <section id="sandbox" className="py-24 px-6 bg-slate-50 border-b border-slate-200">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+            <span className="bg-emerald-100 border border-emerald-300 text-emerald-900 text-[10.5px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-xs">
+              Live Network Sandbox
+            </span>
+            <h2 className="text-3xl font-extrabold text-slate-905 tracking-tight">Interactive Ledger Query Sandbox</h2>
+            <p className="text-slate-600 text-sm font-semibold">
+              Query blockchain states directly. Enter sample keys to execute a query simulation.
+            </p>
+          </div>
+
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
             className="bg-white border border-slate-300/80 rounded-2xl p-6 md:p-8 shadow-2xl"
           >
-            <div className="text-center space-y-2 mb-6">
-              <h3 className="text-xl font-black text-slate-905">Interactive Ledger Query Sandbox</h3>
-              <p className="text-xs text-slate-600 font-medium">Query the blockchain smart contract directly from this sandbox console.</p>
-            </div>
-
             <div className="relative bg-slate-550/10 border border-slate-250 p-1.5 rounded-xl shadow-inner flex items-center gap-2">
               <Search className="h-5 w-5 text-slate-500 ml-3 shrink-0" />
               <input 
@@ -487,7 +684,7 @@ export const LandingPage: React.FC = () => {
                 <button 
                   key={id}
                   onClick={() => triggerQuickSample(id)}
-                  className="bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-950 px-3 py-1 rounded-full font-mono font-bold transition-all text-[11px] shadow-sm"
+                  className="bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-955 px-3 py-1 rounded-full font-mono font-bold transition-all text-[11px] shadow-sm"
                 >
                   {id}
                 </button>
@@ -503,7 +700,7 @@ export const LandingPage: React.FC = () => {
                   exit={{ opacity: 0 }}
                   className="mt-8 border border-dashed border-emerald-300 rounded-xl p-8 bg-emerald-50/40 text-center flex flex-col items-center justify-center space-y-4"
                 >
-                  <RefreshCw className="h-8 w-8 text-emerald-700 animate-spin" />
+                  <RefreshCw className="h-8 w-8 text-emerald-755 animate-spin" />
                   <div className="space-y-1">
                     <p className="text-sm font-bold text-emerald-950 font-mono">Querying Blockchain Ledger...</p>
                     <p className="text-xs text-slate-600 font-mono">Connecting to Polygon Gateway RPC: http://127.0.0.1:8545</p>
@@ -526,7 +723,7 @@ export const LandingPage: React.FC = () => {
                   exit={{ opacity: 0 }}
                   className="mt-8 bg-emerald-50/40 border border-emerald-250 rounded-xl p-5 md:p-6 space-y-4 shadow-md text-left animate-fade-in"
                 >
-                  <div className="flex items-center justify-between border-b border-emerald-200 pb-3">
+                  <div className="flex items-center justify-between border-b border-emerald-205 pb-3">
                     <div className="flex items-center space-x-2 text-emerald-900 font-bold text-xs uppercase tracking-wider">
                       <ShieldCheck className="h-4 w-4 text-emerald-700 animate-bounce" />
                       <span>Ledger Match Verified</span>
@@ -610,7 +807,7 @@ export const LandingPage: React.FC = () => {
                   className="mt-8 bg-red-50 border border-red-200 rounded-xl p-5 text-center flex flex-col items-center space-y-2 text-xs"
                 >
                   <XCircle className="h-8 w-8 text-red-650" />
-                  <p className="font-black text-red-950">Hash Match Failed</p>
+                  <p className="font-black text-red-955">Hash Match Failed</p>
                   <p className="text-slate-700 font-medium leading-relaxed">{searchError}</p>
                 </motion.div>
               )}
@@ -619,7 +816,7 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Social Proof (SaaS Style Logo Row) */}
+      {/* SECTION 4: SOCIAL PROOF / PLATFORM METRICS ROW */}
       <section className="py-12 bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-8">
           <p className="text-center text-[11px] font-black text-slate-500 uppercase tracking-widest mb-6">
@@ -646,129 +843,59 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* NEW BENTO GRID FEATURES SECTION */}
-      <section className="py-24 px-8 bg-slate-50 border-b border-slate-200">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="bg-emerald-100 border border-emerald-300 text-emerald-900 text-[10.5px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
-              Bento Architecture
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-905 tracking-tight mt-3">Key Platform Pillars</h2>
-            <p className="text-slate-600 text-sm leading-relaxed font-semibold">
-              Tailored integrations coordinating high-speed performance benchmarks and decentralization parameters.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Box 1 (Large Bento) */}
-            <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 text-white rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-xl border border-emerald-900/20 min-h-[300px] hover:shadow-2xl transition-all text-left">
-              <div className="h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center border border-white/20 mb-6 shrink-0 shadow-md">
-                <Shield className="h-6 w-6 text-emerald-350" />
-              </div>
-              <div className="space-y-2">
-                <span className="text-[10.5px] font-black text-emerald-350 uppercase tracking-widest block">Polygon Integration</span>
-                <h3 className="text-2xl font-black">Smart Contract Anchoring</h3>
-                <p className="text-slate-200 text-xs leading-relaxed max-w-md font-medium">
-                  Anchors document fingerprint signatures directly to public smart contract registries. Once records are written on-chain, they remain immutable, making verification mathematically solid.
-                </p>
-              </div>
-            </div>
-
-            {/* Box 2 (Small Bento) */}
-            <div className="bg-white border border-slate-250 rounded-2xl p-6 flex flex-col justify-between shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
-              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
-                <Cpu className="h-6 w-6" />
-              </div>
-              <div className="space-y-2">
-                <span className="text-[10.5px] font-black text-emerald-800 uppercase tracking-widest block">Automated Parsing</span>
-                <h3 className="text-lg font-black text-slate-900">AI Score Estimations</h3>
-                <p className="text-slate-700 text-xs leading-relaxed font-semibold">
-                  Background models index candidates' resumes and letters, estimating performance metrics to pre-populate dashboards.
-                </p>
-              </div>
-            </div>
-
-            {/* Box 3 (Small Bento) */}
-            <div className="bg-white border border-slate-250 rounded-2xl p-6 flex flex-col justify-between shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
-              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
-                <Search className="h-6 w-6" />
-              </div>
-              <div className="space-y-2">
-                <span className="text-[10.5px] font-black text-emerald-800 uppercase tracking-widest block">Instant Scanner</span>
-                <h3 className="text-lg font-black text-slate-900">Security QR Lookups</h3>
-                <p className="text-slate-700 text-xs leading-relaxed font-semibold">
-                  Embeds encrypted QR routes in certificate PDF files. Third-party auditors can scan and query contract states instantly on mobile.
-                </p>
-              </div>
-            </div>
-
-            {/* Box 4 (Large Bento) */}
-            <div className="bg-white border border-slate-250 rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
-              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-805 mb-6 shrink-0 shadow-sm">
-                <Users className="h-6 w-6" />
-              </div>
-              <div className="space-y-2">
-                <span className="text-[10.5px] font-black text-emerald-800 uppercase tracking-widest block">Multi-Role Workspace</span>
-                <h3 className="text-2xl font-black text-slate-900">Unified Coordination Pipelines</h3>
-                <p className="text-slate-700 text-xs leading-relaxed max-w-md font-semibold">
-                  Unique portals tailored to isolate specific functionalities. Employees upload files, HR managers forward evaluation lists, evaluators adjust grades, and verifiers validate origins.
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  <span className="bg-blue-105 text-blue-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-blue-200 shadow-sm">HR ADMIN</span>
-                  <span className="bg-emerald-105 text-emerald-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-emerald-200 shadow-sm">EVALUATOR MANAGER</span>
-                  <span className="bg-yellow-105 text-yellow-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-yellow-200 shadow-sm">EMPLOYEE</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Structured Pipeline Timeline Section */}
-      <section className="py-24 px-8 bg-white border-b border-slate-200">
+      {/* SECTION 5: PIPELINE WORKFLOW (Milestones connected Timeline) */}
+      <section id="timeline" className="py-24 px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
-            <h2 className="text-3xl font-extrabold text-slate-905 tracking-tight">Structured Pipeline Flow</h2>
+            <span className="bg-emerald-100 border border-emerald-300 text-emerald-900 text-[10.5px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-xs">
+              System Pipeline
+            </span>
+            <h2 className="text-3xl font-extrabold text-slate-905 tracking-tight mt-3">Structured Workflow Flow</h2>
             <p className="text-slate-600 text-sm leading-relaxed font-semibold">
               Automated workflow coordinating validations, manager approvals, and on-chain records.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              { num: '01', title: 'Submit Documents', desc: 'Employee uploads Aadhaar ID, resume, and experience letter details.' },
-              { num: '02', title: 'AI Pre-validation', desc: 'Background parser identifies key skills and pre-calculates rating suggestions.' },
-              { num: '03', title: 'Manager Evaluation', desc: 'HR validates technical performance scores and approves issuance.' },
-              { num: '04', title: 'On-Chain Seal', desc: 'Document hash is permanently written to the blockchain registry.' },
-            ].map((step, idx) => (
-              <div key={idx} className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-md flex flex-col justify-between relative hover:border-emerald-600/30 hover:shadow-lg transition-all duration-150 text-left">
-                <span className="text-4xl font-black text-emerald-700 opacity-25 font-mono block">{step.num}</span>
-                <div className="mt-4">
-                  <h3 className="font-extrabold text-slate-900 text-base">{step.title}</h3>
-                  <p className="text-slate-700 text-xs leading-relaxed font-semibold mt-2">{step.desc}</p>
-                </div>
-                {idx < 3 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                    <ArrowRight className="h-5 w-5 text-slate-400" />
+          {/* Cryptian Connected Timeline Layout */}
+          <div className="relative">
+            {/* Connecting center line */}
+            <div className="hidden lg:block absolute top-1/2 left-4 right-4 h-1.5 bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-700 -translate-y-1/2 z-0 rounded-full"></div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+              {[
+                { num: '01', title: 'Submit Documents', desc: 'Employee uploads Aadhaar ID, resume, and experience letter details.' },
+                { num: '02', title: 'AI Pre-validation', desc: 'Background parser identifies key skills and pre-calculates rating suggestions.' },
+                { num: '03', title: 'Manager Evaluation', desc: 'HR validates technical performance scores and approves issuance.' },
+                { num: '04', title: 'On-Chain Seal', desc: 'Document hash is permanently written to the blockchain registry.' },
+              ].map((step, idx) => (
+                <div key={idx} className="bg-white border border-slate-250 rounded-2xl p-6 shadow-md flex flex-col justify-between relative hover:border-emerald-600/30 hover:shadow-xl transition-all duration-150 text-left min-h-[220px]">
+                  {/* Step bubble marker */}
+                  <div className="absolute -top-4 left-6 h-10 w-10 bg-emerald-600 rounded-full flex items-center justify-center text-white border-4 border-white shadow font-bold text-xs">
+                    {step.num}
                   </div>
-                )}
-              </div>
-            ))}
+                  <div className="mt-6 flex-1">
+                    <h3 className="font-extrabold text-slate-900 text-base">{step.title}</h3>
+                    <p className="text-slate-600 text-xs leading-relaxed font-medium mt-2">{step.desc}</p>
+                  </div>
+                  <div className="text-[10px] font-mono font-black text-emerald-800 uppercase tracking-widest mt-4">
+                    Phase 0{idx + 1}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Dynamic Themed Carousel Section for Final Year Project Showcase */}
-      <section className="py-24 px-8 bg-slate-50 border-b border-slate-200">
+      {/* SECTION 6: PLATFORM FEATURES CAROUSEL */}
+      <section id="pillars" className="py-24 px-8 bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
-            <span className="bg-emerald-100 border border-emerald-250 text-emerald-900 text-[10px] font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+            <span className="bg-emerald-100 border border-emerald-250 text-emerald-900 text-[10px] font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow-xs">
               Project Pillars Showcase
             </span>
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mt-3">Platform Core Pillars</h2>
-            <p className="text-slate-600 text-sm leading-relaxed font-semibold animate-pulse">
+            <p className="text-slate-650 text-sm leading-relaxed font-semibold">
               Explore the critical technologies coordinating trust and automation inside CertifyPro.
             </p>
           </div>
@@ -795,7 +922,7 @@ export const LandingPage: React.FC = () => {
                 <h3 className="text-xl md:text-2xl font-black text-slate-905 leading-snug">
                   {carouselSlides[activeSlide].title}
                 </h3>
-                <p className="text-xs md:text-sm text-slate-600 font-semibold leading-relaxed">
+                <p className="text-xs md:text-sm text-slate-650 font-semibold leading-relaxed">
                   {carouselSlides[activeSlide].desc}
                 </p>
                 <ul className="space-y-1.5 pt-2">
@@ -852,7 +979,87 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Statistics Section */}
+      {/* SECTION 7: BENTO GRID PILLARS */}
+      <section className="py-24 px-8 bg-slate-50 border-b border-slate-200">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+            <span className="bg-emerald-100 border border-emerald-300 text-emerald-905 text-[10.5px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-xs">
+              Bento Architecture
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-905 tracking-tight mt-3">Platform Core Mechanics</h2>
+            <p className="text-slate-600 text-sm leading-relaxed font-semibold">
+              Tailored integrations coordinating high-speed performance benchmarks and decentralization parameters.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Box 1 (Large Bento) */}
+            <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 text-white rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-xl border border-emerald-900/20 min-h-[300px] hover:shadow-2xl transition-all text-left">
+              <div className="h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center border border-white/20 mb-6 shrink-0 shadow-md">
+                <Shield className="h-6 w-6 text-emerald-350" />
+              </div>
+              <div className="space-y-2">
+                <span className="text-[10.5px] font-black text-emerald-355 uppercase tracking-widest block">Polygon Integration</span>
+                <h3 className="text-2xl font-black">Smart Contract Anchoring</h3>
+                <p className="text-slate-200 text-xs leading-relaxed max-w-md font-medium">
+                  Anchors document fingerprint signatures directly to public smart contract registries. Once records are written on-chain, they remain immutable, making verification mathematically solid.
+                </p>
+              </div>
+            </div>
+
+            {/* Box 2 (Small Bento) */}
+            <div className="bg-white border border-slate-250 rounded-2xl p-6 flex flex-col justify-between shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
+              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
+                <Cpu className="h-6 w-6" />
+              </div>
+              <div className="space-y-2">
+                <span className="text-[10.5px] font-black text-emerald-800 uppercase tracking-widest block">Automated Parsing</span>
+                <h3 className="text-lg font-black text-slate-900">AI Score Estimations</h3>
+                <p className="text-slate-700 text-xs leading-relaxed font-semibold">
+                  Background models index candidates' resumes and letters, estimating performance metrics to pre-populate dashboards.
+                </p>
+              </div>
+            </div>
+
+            {/* Box 3 (Small Bento) */}
+            <div className="bg-white border border-slate-250 rounded-2xl p-6 flex flex-col justify-between shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
+              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
+                <Search className="h-6 w-6" />
+              </div>
+              <div className="space-y-2">
+                <span className="text-[10.5px] font-black text-emerald-800 uppercase tracking-widest block">Instant Scanner</span>
+                <h3 className="text-lg font-black text-slate-900">Security QR Lookups</h3>
+                <p className="text-slate-700 text-xs leading-relaxed font-semibold">
+                  Embeds encrypted QR routes in certificate PDF files. Third-party auditors can scan and query contract states instantly on mobile.
+                </p>
+              </div>
+            </div>
+
+            {/* Box 4 (Large Bento) */}
+            <div className="bg-white border border-slate-250 rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
+              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-805 mb-6 shrink-0 shadow-sm">
+                <Users className="h-6 w-6" />
+              </div>
+              <div className="space-y-2">
+                <span className="text-[10.5px] font-black text-emerald-805 uppercase tracking-widest block">Multi-Role Workspace</span>
+                <h3 className="text-2xl font-black text-slate-900">Unified Coordination Pipelines</h3>
+                <p className="text-slate-700 text-xs leading-relaxed max-w-md font-semibold">
+                  Unique portals tailored to isolate specific functionalities. Employees upload files, HR managers forward evaluation lists, evaluators adjust grades, and verifiers validate origins.
+                </p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  <span className="bg-blue-105 text-blue-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-blue-200 shadow-sm">HR ADMIN</span>
+                  <span className="bg-emerald-105 text-emerald-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-emerald-200 shadow-sm">EVALUATOR MANAGER</span>
+                  <span className="bg-yellow-105 text-yellow-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-yellow-200 shadow-sm">EMPLOYEE</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 8: STATISTICS SECTION */}
       <section className="py-16 bg-gradient-to-r from-emerald-800 to-teal-900 text-white text-center px-8 w-full shadow-md animate-pulse">
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
           <div className="space-y-1">
@@ -870,7 +1077,7 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* FAQ Accordion Section */}
+      {/* SECTION 9: FAQS */}
       <section className="py-24 px-8 bg-white border-b border-slate-200">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-extrabold text-center text-slate-900 tracking-tight mb-12">Frequently Asked Questions</h2>
@@ -884,10 +1091,10 @@ export const LandingPage: React.FC = () => {
                 >
                   <button 
                     onClick={() => setOpenFaqIdx(isOpen ? null : idx)}
-                    className="w-full py-4.5 px-6 flex items-center justify-between text-left text-sm md:text-base font-bold text-slate-900 hover:bg-slate-55/60 transition-colors"
+                    className="w-full py-4.5 px-6 flex items-center justify-between text-left text-sm md:text-base font-bold text-slate-900 hover:bg-slate-50 transition-colors"
                   >
                     <span>{faq.q}</span>
-                    {isOpen ? <ChevronUp className="h-4 w-4 text-emerald-700 shrink-0 ml-4 animate-pulse" /> : <ChevronDown className="h-4 w-4 text-slate-400 shrink-0 ml-4" />}
+                    {isOpen ? <ChevronUp className="h-4 w-4 text-emerald-700 shrink-0 ml-4" /> : <ChevronDown className="h-4 w-4 text-slate-400 shrink-0 ml-4" />}
                   </button>
                   <AnimatePresence initial={false}>
                     {isOpen && (
@@ -911,7 +1118,7 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* BOTTOM CONVERSION CTA BANNER */}
+      {/* SECTION 10: BOTTOM CONVERSION CTA BANNER */}
       <section className="py-20 px-8 bg-gradient-to-b from-slate-50 to-slate-150 text-center relative overflow-hidden border-b border-slate-200">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-emerald-100/40 rounded-full blur-3xl pointer-events-none"></div>
         <div className="max-w-3xl mx-auto relative z-10 space-y-6">
