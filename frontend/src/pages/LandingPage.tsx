@@ -417,8 +417,8 @@ export const LandingPage: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-tight tracking-tight"
           >
-            Chain of Trust for Digital <br />
-            <span className="bg-gradient-to-r from-emerald-700 via-emerald-650 to-teal-800 bg-clip-text text-transparent font-black">Credential Integrity</span>
+            Chain of Trust <br />
+            <span className="bg-gradient-to-r from-emerald-700 via-emerald-650 to-teal-800 bg-clip-text text-transparent font-black text-3xl sm:text-4xl md:text-5xl">Secure and Transparent Digital Certificate Verification</span>
           </motion.h1>
 
           <motion.p 
