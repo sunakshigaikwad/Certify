@@ -373,13 +373,12 @@ export const LandingPage: React.FC = () => {
           <GraduationCap className="h-9 w-9 text-emerald-600" />
           <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-emerald-800 to-teal-700 bg-clip-text text-transparent">CertifyPro</span>
         </div>
-        
-        <div className="flex items-center space-x-6">
+             <div className="flex items-center space-x-6">
           <nav className="hidden md:flex items-center space-x-6">
             <Link to="/verify" className="text-slate-700 hover:text-emerald-850 font-bold text-sm transition-colors">Verifier Portal</Link>
             <Link to="/login" className="text-slate-700 hover:text-emerald-855 font-bold text-sm transition-colors">Evaluator Portal</Link>
             <div className="h-4 w-px bg-slate-300"></div>
-            <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 px-5.5 rounded-full text-sm transition-all duration-150 shadow hover:shadow-md border border-emerald-800">
+            <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 px-6 rounded-full text-sm transition-all duration-150 shadow hover:shadow-md border border-emerald-800 whitespace-nowrap shrink-0">
               Register
             </Link>
           </nav>
@@ -439,7 +438,7 @@ export const LandingPage: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="pt-4 flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto"
           >
-            <Link to="/register" className="bg-emerald-750 hover:bg-emerald-850 text-white font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-md hover:shadow-lg text-center border border-emerald-800">
+            <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-md hover:shadow-lg text-center border border-emerald-800">
               Register Now
             </Link>
             <Link to="/verify" className="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-sm text-center">
