@@ -14,6 +14,7 @@ import { EvaluatorDashboardPage } from './pages/EvaluatorDashboardPage';
 import { EmployeeRequestPage } from './pages/EmployeeRequestPage';
 import { EmployeeTrackPage } from './pages/EmployeeTrackPage';
 import { PublicVerificationPage } from './pages/PublicVerificationPage';
+import { SettingsPage } from './pages/SettingsPage';
 
 export const App: React.FC = () => {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
@@ -136,6 +137,12 @@ export const App: React.FC = () => {
         <Route path="/employee-track" element={
           <ProtectedRoute allowedRoles={['EMPLOYEE']}>
             <EmployeeTrackPage user={user} onLogout={handleLogout} />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/settings" element={
+          <ProtectedRoute allowedRoles={['ADMIN', 'EMPLOYEE', 'EVALUATOR']}>
+            <SettingsPage user={user} onLogout={handleLogout} />
           </ProtectedRoute>
         } />
 
