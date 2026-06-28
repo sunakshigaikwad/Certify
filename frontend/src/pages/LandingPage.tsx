@@ -373,23 +373,25 @@ export const LandingPage: React.FC = () => {
           <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-emerald-800 to-teal-700 bg-clip-text text-transparent">CertifyPro</span>
         </div>
         
-        <nav className="hidden md:flex items-center space-x-8">
-          <Link to="/verify" className="text-slate-700 hover:text-emerald-850 font-bold text-sm transition-colors">Verifier Portal</Link>
-          <Link to="/login" className="text-slate-700 hover:text-emerald-855 font-bold text-sm transition-colors">Evaluator Portal</Link>
-          <div className="h-4 w-px bg-slate-350"></div>
-          <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 px-5 rounded text-sm transition-all duration-150 shadow hover:shadow-md border border-emerald-800">
-            Register
-          </Link>
-        </nav>
+        <div className="flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link to="/verify" className="text-slate-700 hover:text-emerald-850 font-bold text-sm transition-colors">Verifier Portal</Link>
+            <Link to="/login" className="text-slate-700 hover:text-emerald-855 font-bold text-sm transition-colors">Evaluator Portal</Link>
+            <div className="h-4 w-px bg-slate-300"></div>
+            <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 px-5.5 rounded-full text-sm transition-all duration-150 shadow hover:shadow-md border border-emerald-800">
+              Register
+            </Link>
+          </nav>
 
-        {/* Live operational node indicator */}
-        <div className="flex items-center space-x-2 bg-emerald-100 border border-emerald-250 rounded-full px-3 py-1 shadow-sm shrink-0">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-650"></span>
-          </span>
-          <span className="text-[10px] text-emerald-900 font-extrabold tracking-wide uppercase hidden sm:inline">Polygon Nodes Operational</span>
-          <span className="text-[10px] text-emerald-900 font-extrabold tracking-wide uppercase sm:hidden">Online</span>
+          {/* Live operational node indicator */}
+          <div className="flex items-center space-x-2 bg-emerald-100 border border-emerald-250 rounded-full px-3 py-1 shadow-sm shrink-0">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-650"></span>
+            </span>
+            <span className="text-[10px] text-emerald-900 font-extrabold tracking-wide uppercase hidden sm:inline">Polygon Nodes Operational</span>
+            <span className="text-[10px] text-emerald-900 font-extrabold tracking-wide uppercase sm:hidden">Online</span>
+          </div>
         </div>
       </header>
 
