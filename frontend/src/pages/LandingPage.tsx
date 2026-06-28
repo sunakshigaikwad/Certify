@@ -147,9 +147,9 @@ export const LandingPage: React.FC = () => {
   const sampleDatabase: Record<string, any> = {
     'CP-9812': {
       id: 'CP-9812',
-      candidate: 'Aksha Dhiwar',
+      candidate: 'Alex Mercer',
       role: 'Software Engineer',
-      issuer: "Rutuja's Software Pvt Ltd",
+      issuer: 'Apex Global Technologies',
       tenure: 'Jan 2023 - Dec 2025',
       rating: '4.8 / 5.0 Stars',
       hash: '0x3a4b7f1ad91a039fa8e7162985123d4cfa8f2b3e401c23f8702b8d91a3b5c4e78',
@@ -160,9 +160,9 @@ export const LandingPage: React.FC = () => {
     },
     'CP-9813': {
       id: 'CP-9813',
-      candidate: 'Sunakshi Gaikwad',
+      candidate: 'Sarah Connor',
       role: 'Lead Solidity Architect',
-      issuer: 'Gaikwad Tech Solutions',
+      issuer: 'Summit Solutions Inc',
       tenure: 'Mar 2022 - Aug 2025',
       rating: '5.0 / 5.0 Stars',
       hash: '0x6e2c9d3ef8a1b32d2b8c91a3b5c4e78aef291bc82d039fa8e7162985123d4cf8',
@@ -173,9 +173,9 @@ export const LandingPage: React.FC = () => {
     },
     'CP-9814': {
       id: 'CP-9814',
-      candidate: 'Rutuja Ingale',
+      candidate: 'Robert Downey',
       role: 'Senior Project Lead',
-      issuer: 'Ingale Consult Group',
+      issuer: 'Nova HR Group',
       tenure: 'Jun 2021 - May 2025',
       rating: '4.9 / 5.0 Stars',
       hash: '0xf8a12b8c9d3e6e2c3a4b7f1ad91a039fa8e7162985123d4cfa8f2b3e401c23f87',
@@ -825,15 +825,15 @@ export const LandingPage: React.FC = () => {
           <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16 opacity-90">
             <div className="flex items-center space-x-1.5 font-extrabold text-slate-700 text-sm hover:text-emerald-700 transition-colors duration-200">
               <Building className="h-4.5 w-4.5 text-slate-500" />
-              <span>Rutuja's Software</span>
+              <span>Apex Global Technologies</span>
             </div>
             <div className="flex items-center space-x-1.5 font-extrabold text-slate-700 text-sm hover:text-emerald-700 transition-colors duration-200">
               <Building className="h-4.5 w-4.5 text-slate-500" />
-              <span>Gaikwad Tech Corp</span>
+              <span>Summit Solutions Inc</span>
             </div>
             <div className="flex items-center space-x-1.5 font-extrabold text-slate-700 text-sm hover:text-emerald-700 transition-colors duration-200">
               <Building className="h-4.5 w-4.5 text-slate-500" />
-              <span>Ingale HR Solutions</span>
+              <span>Nova HR Group</span>
             </div>
             <div className="flex items-center space-x-1.5 font-extrabold text-slate-700 text-sm hover:text-emerald-700 transition-colors duration-200">
               <Award className="h-4.5 w-4.5 text-slate-550" />
