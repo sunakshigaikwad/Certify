@@ -69,8 +69,8 @@ const LiveNetworkBackground: React.FC = () => {
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
       
-      // Draw connecting lines (vibrant emerald green with better opacity)
-      ctx.strokeStyle = 'rgba(16, 185, 129, 0.08)';
+      // Draw connecting lines (vibrant emerald green with soft opacity)
+      ctx.strokeStyle = 'rgba(16, 185, 129, 0.12)';
       ctx.lineWidth = 1.0;
       for (let i = 0; i < particles.length; i++) {
         const p1 = particles[i];
@@ -87,7 +87,7 @@ const LiveNetworkBackground: React.FC = () => {
       }
 
       // Draw particle dots
-      ctx.fillStyle = 'rgba(16, 185, 129, 0.25)';
+      ctx.fillStyle = 'rgba(4, 120, 87, 0.3)';
       particles.forEach((p) => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
@@ -116,7 +116,7 @@ const LiveNetworkBackground: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-70"
+      className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-80"
     />
   );
 };
@@ -229,8 +229,8 @@ export const LandingPage: React.FC = () => {
         "Deterministic check matching binary decisions"
       ],
       visual: (
-        <div className="bg-slate-950 text-emerald-400 p-5 rounded-lg border border-slate-900 font-mono text-[11px] space-y-2.5 shadow-lg text-left">
-          <div className="flex items-center justify-between border-b border-slate-900 pb-2 text-[10px] text-slate-500">
+        <div className="bg-slate-900 text-emerald-405 p-5 rounded-lg border border-slate-800 font-mono text-[11px] space-y-2.5 shadow-lg text-left">
+          <div className="flex items-center justify-between border-b border-slate-855 pb-2 text-[10px] text-slate-500">
             <span>[POLYGON AMOY REGISTER]</span>
             <span className="text-emerald-400 animate-pulse">● LIVE CONNECTION</span>
           </div>
@@ -252,26 +252,26 @@ export const LandingPage: React.FC = () => {
         "Detailed comments generation summarizing strengths"
       ],
       visual: (
-        <div className="bg-slate-950 border border-slate-900 rounded-lg p-5 shadow-lg space-y-3 text-left">
-          <div className="flex items-center space-x-2 bg-emerald-955/40 text-emerald-400 text-[10px] px-2 py-1 rounded font-bold border border-emerald-900/50">
-            <Cpu className="h-3.5 w-3.5 animate-spin-slow text-emerald-400" />
+        <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 shadow-sm space-y-3 text-left">
+          <div className="flex items-center space-x-2 bg-emerald-50 text-emerald-800 text-[10px] px-2 py-1 rounded font-bold border border-emerald-100">
+            <Cpu className="h-3.5 w-3.5 animate-spin-slow text-emerald-700" />
             <span>AI PRE-VALIDATED SKILLS REPORT</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
             {['react', 'python', 'node.js', 'management'].map(skill => (
-              <span key={skill} className="bg-slate-900 border border-slate-800 text-emerald-455 text-[9px] font-bold px-2 py-0.5 rounded">
+              <span key={skill} className="bg-white border border-emerald-150 text-emerald-800 text-[9px] font-bold px-2 py-0.5 rounded shadow-xs">
                 ✓ {skill}
               </span>
             ))}
           </div>
-          <div className="space-y-1.5 text-[10px] text-slate-400">
+          <div className="space-y-1.5 text-[10px] text-slate-600">
             <div className="flex justify-between">
               <span>Technical Skills Estimate:</span>
-              <span className="font-bold text-slate-200">4/5 Stars</span>
+              <span className="font-bold text-slate-800">4/5 Stars</span>
             </div>
             <div className="flex justify-between">
               <span>Communication & Teamwork:</span>
-              <span className="font-bold text-slate-200">5/5 Stars</span>
+              <span className="font-bold text-slate-800">5/5 Stars</span>
             </div>
           </div>
         </div>
@@ -288,13 +288,13 @@ export const LandingPage: React.FC = () => {
         "Responsive public verification page previews"
       ],
       visual: (
-        <div className="bg-emerald-955/30 border border-emerald-900/50 rounded-lg p-6 flex flex-col items-center justify-center text-center space-y-3 shadow-inner">
-          <div className="h-16 w-16 bg-slate-900 border-2 border-emerald-600 rounded p-1 flex items-center justify-center shadow">
-            <div className="w-full h-full bg-emerald-500/80 rounded"></div>
+        <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-6 flex flex-col items-center justify-center text-center space-y-3 shadow-inner">
+          <div className="h-16 w-16 bg-white border-2 border-emerald-600 rounded p-1 flex items-center justify-center shadow">
+            <div className="w-full h-full bg-emerald-700 rounded"></div>
           </div>
           <div className="space-y-1">
-            <span className="text-[10px] font-bold text-emerald-400 block">SCAN TO VERIFY ORIGIN</span>
-            <p className="text-[9px] text-emerald-500 font-mono">http://localhost:5173/verify/CP-9814</p>
+            <span className="text-[10px] font-bold text-emerald-900 block">SCAN TO VERIFY ORIGIN</span>
+            <p className="text-[9px] text-emerald-800 font-mono">http://localhost:5173/verify/CP-9814</p>
           </div>
         </div>
       )
@@ -310,17 +310,17 @@ export const LandingPage: React.FC = () => {
         "Transparent step tracking from upload to blockchain anchoring"
       ],
       visual: (
-        <div className="bg-slate-955 border border-slate-900 rounded-lg p-5 shadow-lg space-y-2 text-left">
-          <span className="text-[10px] font-bold text-slate-505 uppercase tracking-wider block">Workspace Roles Structure</span>
+        <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-2 text-left">
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Workspace Roles Structure</span>
           <div className="space-y-2">
             {[
-              { role: 'HR Admin', desc: 'Forward queues & confirm PDF issue', color: 'bg-blue-955/30 text-blue-300 border-blue-900/40' },
-              { role: 'Team Evaluator', desc: 'Pre-filled AI rating & decisions', color: 'bg-emerald-955/30 text-emerald-300 border-emerald-900/40' },
-              { role: 'Employee', desc: 'Submit letter scans & track status', color: 'bg-yellow-955/20 text-yellow-300 border-yellow-900/40' }
+              { role: 'HR Admin', desc: 'Forward queues & confirm PDF issue', color: 'bg-blue-50 text-blue-800 border-blue-100' },
+              { role: 'Team Evaluator', desc: 'Pre-filled AI rating & decisions', color: 'bg-emerald-55/60 text-emerald-800 border-emerald-100' },
+              { role: 'Employee', desc: 'Submit letter scans & track status', color: 'bg-yellow-50 text-yellow-800 border-yellow-100' }
             ].map(r => (
               <div key={r.role} className={`border p-2 rounded flex items-center justify-between text-[10px] ${r.color}`}>
                 <span className="font-bold">{r.role}</span>
-                <span className="text-slate-400 font-semibold">{r.desc}</span>
+                <span className="text-slate-700 font-semibold">{r.desc}</span>
               </div>
             ))}
           </div>
@@ -365,52 +365,52 @@ export const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="bg-slate-800 min-h-screen flex flex-col font-sans text-slate-100 selection:bg-emerald-500/20 selection:text-emerald-350">
+    <div className="bg-[#f8fafc] min-h-screen flex flex-col font-sans text-slate-800 selection:bg-emerald-500/20 selection:text-emerald-900">
       
       {/* Sleek Glassmorphic Navbar */}
-      <header className="border-b border-slate-900 py-4 px-8 bg-slate-900/95 backdrop-blur-md fixed top-0 left-0 right-0 z-50 flex items-center justify-between shadow-xl transition-all duration-200">
-        <div className="flex items-center space-x-2 text-emerald-450">
-          <GraduationCap className="h-9 w-9 text-emerald-500" />
-          <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">CertifyPro</span>
+      <header className="border-b border-slate-200 py-4 px-8 bg-white/95 backdrop-blur-md fixed top-0 left-0 right-0 z-50 flex items-center justify-between shadow-sm transition-all duration-200">
+        <div className="flex items-center space-x-2 text-emerald-700">
+          <GraduationCap className="h-9 w-9 text-emerald-600" />
+          <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-emerald-800 to-teal-700 bg-clip-text text-transparent">CertifyPro</span>
         </div>
         
         <div className="flex items-center space-x-6">
           <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/verify" className="text-slate-300 hover:text-emerald-400 font-bold text-sm transition-colors">Verifier Portal</Link>
-            <Link to="/login" className="text-slate-300 hover:text-emerald-400 font-bold text-sm transition-colors">Evaluator Portal</Link>
-            <div className="h-4 w-px bg-slate-800"></div>
-            <Link to="/register" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-5.5 rounded-full text-sm transition-all duration-150 shadow hover:shadow-md border border-emerald-550/20">
+            <Link to="/verify" className="text-slate-700 hover:text-emerald-850 font-bold text-sm transition-colors">Verifier Portal</Link>
+            <Link to="/login" className="text-slate-700 hover:text-emerald-855 font-bold text-sm transition-colors">Evaluator Portal</Link>
+            <div className="h-4 w-px bg-slate-300"></div>
+            <Link to="/register" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 px-5.5 rounded-full text-sm transition-all duration-150 shadow hover:shadow-md border border-emerald-800">
               Register
             </Link>
           </nav>
 
           {/* Live operational node indicator */}
-          <div className="flex items-center space-x-2 bg-emerald-955/65 border border-emerald-900/50 rounded-full px-3 py-1 shadow-sm shrink-0">
+          <div className="flex items-center space-x-2 bg-emerald-100 border border-emerald-250 rounded-full px-3 py-1 shadow-sm shrink-0">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-450 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-650"></span>
             </span>
-            <span className="text-[10px] text-emerald-300 font-extrabold tracking-wide uppercase hidden sm:inline">Polygon Nodes Operational</span>
-            <span className="text-[10px] text-emerald-300 font-extrabold tracking-wide uppercase sm:hidden">Online</span>
+            <span className="text-[10px] text-emerald-900 font-extrabold tracking-wide uppercase hidden sm:inline">Polygon Nodes Operational</span>
+            <span className="text-[10px] text-emerald-900 font-extrabold tracking-wide uppercase sm:hidden">Online</span>
           </div>
         </div>
       </header>
 
       {/* GRAND HERO: Centered Typography & Dynamic Particle Network */}
-      <section className="relative pt-44 pb-32 px-6 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 border-b border-slate-800 overflow-hidden">
+      <section className="relative pt-44 pb-32 px-6 bg-gradient-to-b from-emerald-50/40 via-white to-slate-50 border-b border-slate-200 overflow-hidden">
         <LiveNetworkBackground />
         
         {/* Visual ambient gradients */}
-        <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-r from-emerald-900/10 to-teal-900/10 rounded-full blur-3xl pointer-events-none z-0"></div>
+        <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-r from-emerald-200/20 to-teal-200/20 rounded-full blur-3xl pointer-events-none z-0"></div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10 space-y-6">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center space-x-1.5 bg-emerald-955/70 border border-emerald-900/50 text-emerald-300 text-[10.5px] font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-sm animate-pulse"
+            className="inline-flex items-center space-x-1.5 bg-emerald-100/90 border border-emerald-300 text-emerald-900 text-[10.5px] font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-sm"
           >
-            <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+            <Sparkles className="h-3.5 w-3.5 text-emerald-700" />
             <span>Cryptographic Trust Infrastructure</span>
           </motion.div>
 
@@ -418,17 +418,17 @@ export const LandingPage: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-100 leading-tight tracking-tight"
+            className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-950 leading-tight tracking-tight"
           >
             Chain of Trust <br />
-            <span className="bg-gradient-to-r from-emerald-450 via-teal-350 to-emerald-450 bg-clip-text text-transparent font-black text-3xl sm:text-4xl md:text-5xl">Secure and Transparent Digital Certificate Verification</span>
+            <span className="bg-gradient-to-r from-emerald-800 via-emerald-600 to-teal-800 bg-clip-text text-transparent font-black text-3xl sm:text-4xl md:text-5xl">Secure and Transparent Digital Certificate Verification</span>
           </motion.h1>
 
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto font-medium"
+            className="text-base sm:text-lg md:text-xl text-slate-700 leading-relaxed max-w-2xl mx-auto font-medium"
           >
             An enterprise verification ecosystem automating employee experience tracking, background AI skills parsing, and Polygon network immutable ledger anchoring.
           </motion.p>
@@ -439,10 +439,10 @@ export const LandingPage: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="pt-4 flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto"
           >
-            <Link to="/register" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-md hover:shadow-lg text-center border border-emerald-550/20">
+            <Link to="/register" className="bg-emerald-750 hover:bg-emerald-850 text-white font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-md hover:shadow-lg text-center border border-emerald-800">
               Register Now
             </Link>
-            <Link to="/verify" className="bg-slate-900/60 hover:bg-slate-900 text-slate-200 border border-slate-800 font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-sm text-center">
+            <Link to="/verify" className="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold py-3.5 px-8 rounded-full text-sm transition-all duration-150 shadow-sm text-center">
               Verify Certificate
             </Link>
           </motion.div>
@@ -454,27 +454,27 @@ export const LandingPage: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="bg-slate-905 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl"
+            className="bg-white border border-slate-300/80 rounded-2xl p-6 md:p-8 shadow-2xl"
           >
             <div className="text-center space-y-2 mb-6">
-              <h3 className="text-xl font-black text-slate-100">Interactive Ledger Query Sandbox</h3>
-              <p className="text-xs text-slate-400 font-medium">Query the blockchain smart contract directly from this sandbox console.</p>
+              <h3 className="text-xl font-black text-slate-905">Interactive Ledger Query Sandbox</h3>
+              <p className="text-xs text-slate-600 font-medium">Query the blockchain smart contract directly from this sandbox console.</p>
             </div>
 
-            <div className="relative bg-slate-950 border border-slate-800 p-1.5 rounded-xl shadow-inner flex items-center gap-2">
-              <Search className="h-5 w-5 text-slate-550 ml-3 shrink-0" />
+            <div className="relative bg-slate-550/10 border border-slate-250 p-1.5 rounded-xl shadow-inner flex items-center gap-2">
+              <Search className="h-5 w-5 text-slate-500 ml-3 shrink-0" />
               <input 
                 type="text" 
                 placeholder="Enter Document ID (e.g. CP-9812)" 
                 value={searchId}
                 onChange={(e) => setSearchId(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                className="w-full pl-1 pr-3 py-2.5 text-sm bg-transparent outline-none text-white placeholder-slate-500 font-medium"
+                className="w-full pl-1 pr-3 py-2.5 text-sm bg-transparent outline-none text-slate-900 placeholder-slate-500 font-medium"
               />
               <button 
                 onClick={handleSearch}
                 disabled={isSearching}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-6 py-3 rounded-lg transition-colors shadow shrink-0 flex items-center gap-1.5"
+                className="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold px-6 py-3 rounded-lg transition-colors shadow shrink-0 flex items-center gap-1.5 border border-emerald-800"
               >
                 {isSearching ? <RefreshCw className="h-3.5 w-3.5 animate-spin" /> : null}
                 <span>{isSearching ? 'Querying...' : 'Fetch Record'}</span>
@@ -488,7 +488,7 @@ export const LandingPage: React.FC = () => {
                 <button 
                   key={id}
                   onClick={() => triggerQuickSample(id)}
-                  className="bg-slate-950/60 hover:bg-slate-950 border border-slate-800/80 text-emerald-300 px-3 py-1 rounded-full font-mono font-bold transition-all text-[11px] shadow-sm"
+                  className="bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-950 px-3 py-1 rounded-full font-mono font-bold transition-all text-[11px] shadow-sm"
                 >
                   {id}
                 </button>
@@ -502,16 +502,16 @@ export const LandingPage: React.FC = () => {
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
-                  className="mt-8 border border-dashed border-emerald-800 rounded-xl p-8 bg-emerald-950/20 text-center flex flex-col items-center justify-center space-y-4"
+                  className="mt-8 border border-dashed border-emerald-300 rounded-xl p-8 bg-emerald-50/40 text-center flex flex-col items-center justify-center space-y-4"
                 >
-                  <RefreshCw className="h-8 w-8 text-emerald-500 animate-spin" />
+                  <RefreshCw className="h-8 w-8 text-emerald-700 animate-spin" />
                   <div className="space-y-1">
-                    <p className="text-sm font-bold text-emerald-300 font-mono">Querying Blockchain Ledger...</p>
-                    <p className="text-xs text-slate-505 font-mono">Connecting to Polygon Gateway RPC: http://127.0.0.1:8545</p>
+                    <p className="text-sm font-bold text-emerald-950 font-mono">Querying Blockchain Ledger...</p>
+                    <p className="text-xs text-slate-600 font-mono">Connecting to Polygon Gateway RPC: http://127.0.0.1:8545</p>
                   </div>
-                  <div className="w-48 h-1 bg-slate-850 rounded-full overflow-hidden">
+                  <div className="w-48 h-1 bg-slate-200 rounded-full overflow-hidden">
                     <motion.div 
-                      className="h-full bg-emerald-500"
+                      className="h-full bg-emerald-600"
                       initial={{ width: 0 }}
                       animate={{ width: '100%' }}
                       transition={{ duration: 1.2 }}
@@ -525,14 +525,14 @@ export const LandingPage: React.FC = () => {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="mt-8 bg-slate-950/60 border border-slate-850 rounded-xl p-5 md:p-6 space-y-4 shadow-xl text-left animate-fade-in"
+                  className="mt-8 bg-emerald-50/40 border border-emerald-250 rounded-xl p-5 md:p-6 space-y-4 shadow-md text-left animate-fade-in"
                 >
-                  <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
-                    <div className="flex items-center space-x-2 text-emerald-300 font-bold text-xs uppercase tracking-wider">
-                      <ShieldCheck className="h-4 w-4 text-emerald-450 animate-bounce" />
+                  <div className="flex items-center justify-between border-b border-emerald-200 pb-3">
+                    <div className="flex items-center space-x-2 text-emerald-900 font-bold text-xs uppercase tracking-wider">
+                      <ShieldCheck className="h-4 w-4 text-emerald-700 animate-bounce" />
                       <span>Ledger Match Verified</span>
                     </div>
-                    <span className="bg-emerald-955/80 text-emerald-350 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase border border-emerald-900/65 shadow-sm">
+                    <span className="bg-emerald-100 text-emerald-900 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase border border-emerald-300 shadow-xs">
                       ✓ Anchored
                     </span>
                   </div>
@@ -541,32 +541,32 @@ export const LandingPage: React.FC = () => {
                     <div className="space-y-2">
                       <div className="flex justify-between md:block">
                         <span className="text-slate-500 font-bold">Candidate:</span>
-                        <p className="font-bold text-slate-200 text-sm md:mt-0.5">{searchResult.candidate}</p>
+                        <p className="font-bold text-slate-900 text-sm md:mt-0.5">{searchResult.candidate}</p>
                       </div>
                       <div className="flex justify-between md:block">
-                        <span className="text-slate-505 font-bold">Role:</span>
-                        <p className="font-bold text-slate-200 text-sm md:mt-0.5">{searchResult.role}</p>
+                        <span className="text-slate-500 font-bold">Role:</span>
+                        <p className="font-bold text-slate-900 text-sm md:mt-0.5">{searchResult.role}</p>
                       </div>
                       <div className="flex justify-between md:block">
                         <span className="text-slate-505 font-bold">Issuer Org:</span>
-                        <p className="font-semibold text-slate-300 md:mt-0.5">{searchResult.issuer}</p>
+                        <p className="font-extrabold text-slate-900 md:mt-0.5">{searchResult.issuer}</p>
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex justify-between md:block">
                         <span className="text-slate-505 font-bold">Tenure:</span>
-                        <p className="font-semibold text-slate-300 md:mt-0.5">{searchResult.tenure}</p>
+                        <p className="font-extrabold text-slate-900 md:mt-0.5">{searchResult.tenure}</p>
                       </div>
                       <div className="flex justify-between md:block">
                         <span className="text-slate-505 font-bold">Evaluation Rating:</span>
-                        <p className="font-black text-emerald-400 text-sm md:mt-0.5">{searchResult.rating}</p>
+                        <p className="font-black text-emerald-800 text-sm md:mt-0.5">{searchResult.rating}</p>
                       </div>
                       <div className="flex justify-between md:block">
                         <span className="text-slate-555 font-bold">Verified Skills:</span>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {searchResult.skills.map((skill: string) => (
-                            <span key={skill} className="bg-slate-900 border border-slate-800 text-emerald-300 text-[9px] font-bold px-2 py-0.5 rounded shadow-sm">
+                            <span key={skill} className="bg-white border border-emerald-250 text-emerald-900 text-[9px] font-bold px-2 py-0.5 rounded shadow-xs">
                               {skill}
                             </span>
                           ))}
@@ -575,29 +575,29 @@ export const LandingPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="bg-slate-900/80 border border-slate-800 rounded p-3 text-[11px] font-mono space-y-1.5 shadow-inner text-slate-300">
-                    <div className="flex items-center justify-between text-slate-505 text-[10px] pb-1 border-b border-slate-800">
+                  <div className="bg-white border border-slate-250 rounded p-3 text-[11px] font-mono space-y-1.5 shadow-sm text-slate-800">
+                    <div className="flex items-center justify-between text-slate-500 text-[10px] pb-1 border-b border-slate-150">
                       <span className="font-bold">TRANSACTION METADATA</span>
                       <span className="font-bold">BLOCK #{searchResult.block}</span>
                     </div>
                     <div className="flex justify-between items-center gap-2">
-                      <span className="text-slate-505 font-bold shrink-0">TX HASH:</span>
-                      <span className="text-slate-300 font-bold truncate">{searchResult.hash}</span>
+                      <span className="text-slate-500 font-bold shrink-0">TX HASH:</span>
+                      <span className="text-slate-800 font-bold truncate">{searchResult.hash}</span>
                       <button 
                         onClick={() => copyToClipboard(searchResult.hash)}
-                        className="text-slate-505 hover:text-emerald-400 shrink-0"
+                        className="text-slate-500 hover:text-emerald-700 shrink-0"
                         title="Copy Tx Hash"
                       >
-                        {copied ? <Check className="h-3.5 w-3.5 text-emerald-500 animate-ping-once" /> : <Copy className="h-3.5 w-3.5" />}
+                        {copied ? <Check className="h-3.5 w-3.5 text-emerald-600 animate-ping-once" /> : <Copy className="h-3.5 w-3.5" />}
                       </button>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-505 font-bold">TIMESTAMP:</span>
-                      <span className="text-slate-300 font-semibold">{searchResult.timestamp}</span>
+                      <span className="text-slate-500 font-bold">TIMESTAMP:</span>
+                      <span className="text-slate-800 font-semibold">{searchResult.timestamp}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-505 font-bold">GAS CONSUMPTION:</span>
-                      <span className="text-emerald-400 font-extrabold">{searchResult.gasUsed} Wei</span>
+                      <span className="text-slate-500 font-bold">GAS CONSUMPTION:</span>
+                      <span className="text-emerald-800 font-extrabold">{searchResult.gasUsed} Wei</span>
                     </div>
                   </div>
                 </motion.div>
@@ -608,11 +608,11 @@ export const LandingPage: React.FC = () => {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="mt-8 bg-red-955/20 border border-red-900/30 rounded-xl p-5 text-center flex flex-col items-center space-y-2 text-xs"
+                  className="mt-8 bg-red-50 border border-red-200 rounded-xl p-5 text-center flex flex-col items-center space-y-2 text-xs"
                 >
-                  <XCircle className="h-8 w-8 text-red-500" />
-                  <p className="font-black text-red-300">Hash Match Failed</p>
-                  <p className="text-slate-400 font-medium leading-relaxed">{searchError}</p>
+                  <XCircle className="h-8 w-8 text-red-650" />
+                  <p className="font-black text-red-950">Hash Match Failed</p>
+                  <p className="text-slate-700 font-medium leading-relaxed">{searchError}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -621,26 +621,26 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* Social Proof (SaaS Style Logo Row) */}
-      <section className="py-12 bg-slate-900 border-b border-slate-800">
+      <section className="py-12 bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-8">
           <p className="text-center text-[11px] font-black text-slate-500 uppercase tracking-widest mb-6">
             Trusted by modern software teams & HR administrators worldwide
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16 opacity-85">
-            <div className="flex items-center space-x-1.5 font-extrabold text-slate-400 text-sm hover:text-emerald-400 transition-colors duration-200">
-              <Building className="h-4.5 w-4.5 text-slate-655" />
+          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16 opacity-90">
+            <div className="flex items-center space-x-1.5 font-extrabold text-slate-700 text-sm hover:text-emerald-700 transition-colors duration-200">
+              <Building className="h-4.5 w-4.5 text-slate-500" />
               <span>Rutuja's Software</span>
             </div>
-            <div className="flex items-center space-x-1.5 font-extrabold text-slate-400 text-sm hover:text-emerald-400 transition-colors duration-200">
-              <Building className="h-4.5 w-4.5 text-slate-655" />
+            <div className="flex items-center space-x-1.5 font-extrabold text-slate-700 text-sm hover:text-emerald-700 transition-colors duration-200">
+              <Building className="h-4.5 w-4.5 text-slate-500" />
               <span>Gaikwad Tech Corp</span>
             </div>
-            <div className="flex items-center space-x-1.5 font-extrabold text-slate-400 text-sm hover:text-emerald-400 transition-colors duration-200">
-              <Building className="h-4.5 w-4.5 text-slate-655" />
+            <div className="flex items-center space-x-1.5 font-extrabold text-slate-700 text-sm hover:text-emerald-700 transition-colors duration-200">
+              <Building className="h-4.5 w-4.5 text-slate-500" />
               <span>Ingale HR Solutions</span>
             </div>
-            <div className="flex items-center space-x-1.5 font-extrabold text-slate-400 text-sm hover:text-emerald-400 transition-colors duration-200">
-              <Award className="h-4.5 w-4.5 text-slate-655" />
+            <div className="flex items-center space-x-1.5 font-extrabold text-slate-700 text-sm hover:text-emerald-700 transition-colors duration-200">
+              <Award className="h-4.5 w-4.5 text-slate-550" />
               <span>Amoy Networks</span>
             </div>
           </div>
@@ -648,14 +648,14 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* NEW BENTO GRID FEATURES SECTION */}
-      <section className="py-24 px-8 bg-slate-850/50 border-b border-slate-800">
+      <section className="py-24 px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="bg-emerald-955/65 border border-emerald-900/60 text-emerald-300 text-[10.5px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
+            <span className="bg-emerald-100 border border-emerald-300 text-emerald-900 text-[10.5px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
               Bento Architecture
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-100 tracking-tight mt-3">Key Platform Pillars</h2>
-            <p className="text-slate-400 text-sm leading-relaxed font-semibold">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-905 tracking-tight mt-3">Key Platform Pillars</h2>
+            <p className="text-slate-600 text-sm leading-relaxed font-semibold">
               Tailored integrations coordinating high-speed performance benchmarks and decentralization parameters.
             </p>
           </div>
@@ -663,62 +663,62 @@ export const LandingPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* Box 1 (Large Bento) */}
-            <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-950 text-white rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-xl border border-emerald-900/30 min-h-[300px] hover:shadow-2xl transition-all text-left">
-              <div className="h-12 w-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 mb-6 shrink-0 shadow-md">
-                <Shield className="h-6 w-6 text-emerald-455" />
+            <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 text-white rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-xl border border-emerald-900/20 min-h-[300px] hover:shadow-2xl transition-all text-left">
+              <div className="h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center border border-white/20 mb-6 shrink-0 shadow-md">
+                <Shield className="h-6 w-6 text-emerald-350" />
               </div>
               <div className="space-y-2">
-                <span className="text-[10.5px] font-black text-emerald-400 uppercase tracking-widest block">Polygon Integration</span>
+                <span className="text-[10.5px] font-black text-emerald-350 uppercase tracking-widest block">Polygon Integration</span>
                 <h3 className="text-2xl font-black">Smart Contract Anchoring</h3>
-                <p className="text-slate-350 text-xs leading-relaxed max-w-md font-medium">
+                <p className="text-slate-200 text-xs leading-relaxed max-w-md font-medium">
                   Anchors document fingerprint signatures directly to public smart contract registries. Once records are written on-chain, they remain immutable, making verification mathematically solid.
                 </p>
               </div>
             </div>
 
             {/* Box 2 (Small Bento) */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shadow-xl hover:shadow-2xl hover:border-emerald-500/20 transition-all text-left">
-              <div className="h-12 w-12 bg-emerald-955/60 border border-emerald-900/50 rounded-xl flex items-center justify-center text-emerald-350 mb-6 shrink-0 shadow-sm">
+            <div className="bg-white border border-slate-250 rounded-2xl p-6 flex flex-col justify-between shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
+              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
                 <Cpu className="h-6 w-6" />
               </div>
               <div className="space-y-2">
-                <span className="text-[10.5px] font-black text-emerald-450 uppercase tracking-widest block">Automated Parsing</span>
-                <h3 className="text-lg font-black text-slate-150">AI Score Estimations</h3>
-                <p className="text-slate-350 text-xs leading-relaxed font-semibold">
+                <span className="text-[10.5px] font-black text-emerald-800 uppercase tracking-widest block">Automated Parsing</span>
+                <h3 className="text-lg font-black text-slate-900">AI Score Estimations</h3>
+                <p className="text-slate-700 text-xs leading-relaxed font-semibold">
                   Background models index candidates' resumes and letters, estimating performance metrics to pre-populate dashboards.
                 </p>
               </div>
             </div>
 
             {/* Box 3 (Small Bento) */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shadow-xl hover:shadow-2xl hover:border-emerald-500/20 transition-all text-left">
-              <div className="h-12 w-12 bg-emerald-955/60 border border-emerald-900/50 rounded-xl flex items-center justify-center text-emerald-350 mb-6 shrink-0 shadow-sm">
+            <div className="bg-white border border-slate-250 rounded-2xl p-6 flex flex-col justify-between shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
+              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-800 mb-6 shrink-0 shadow-sm">
                 <Search className="h-6 w-6" />
               </div>
               <div className="space-y-2">
-                <span className="text-[10.5px] font-black text-emerald-455 uppercase tracking-widest block">Instant Scanner</span>
-                <h3 className="text-lg font-black text-slate-150">Security QR Lookups</h3>
-                <p className="text-slate-350 text-xs leading-relaxed font-semibold">
+                <span className="text-[10.5px] font-black text-emerald-800 uppercase tracking-widest block">Instant Scanner</span>
+                <h3 className="text-lg font-black text-slate-900">Security QR Lookups</h3>
+                <p className="text-slate-700 text-xs leading-relaxed font-semibold">
                   Embeds encrypted QR routes in certificate PDF files. Third-party auditors can scan and query contract states instantly on mobile.
                 </p>
               </div>
             </div>
 
             {/* Box 4 (Large Bento) */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-xl hover:shadow-2xl hover:border-emerald-500/20 transition-all text-left">
-              <div className="h-12 w-12 bg-emerald-955/60 border border-emerald-900/50 rounded-xl flex items-center justify-center text-emerald-350 mb-6 shrink-0 shadow-sm">
+            <div className="bg-white border border-slate-250 rounded-2xl p-6 md:p-8 flex flex-col justify-between md:col-span-2 shadow-md hover:shadow-lg hover:border-emerald-600/30 transition-all text-left">
+              <div className="h-12 w-12 bg-emerald-105 border border-emerald-200 rounded-xl flex items-center justify-center text-emerald-805 mb-6 shrink-0 shadow-sm">
                 <Users className="h-6 w-6" />
               </div>
               <div className="space-y-2">
-                <span className="text-[10.5px] font-black text-emerald-455 uppercase tracking-widest block">Multi-Role Workspace</span>
-                <h3 className="text-2xl font-black text-slate-150">Unified Coordination Pipelines</h3>
-                <p className="text-slate-350 text-xs leading-relaxed max-w-md font-semibold">
+                <span className="text-[10.5px] font-black text-emerald-800 uppercase tracking-widest block">Multi-Role Workspace</span>
+                <h3 className="text-2xl font-black text-slate-900">Unified Coordination Pipelines</h3>
+                <p className="text-slate-700 text-xs leading-relaxed max-w-md font-semibold">
                   Unique portals tailored to isolate specific functionalities. Employees upload files, HR managers forward evaluation lists, evaluators adjust grades, and verifiers validate origins.
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
-                  <span className="bg-blue-955/40 text-blue-300 text-[10px] font-black px-2.5 py-0.5 rounded border border-blue-900/50 shadow-sm">HR ADMIN</span>
-                  <span className="bg-emerald-955/20 text-emerald-300 text-[10px] font-black px-2.5 py-0.5 rounded border border-emerald-900/50 shadow-sm">EVALUATOR MANAGER</span>
-                  <span className="bg-yellow-955/20 text-yellow-300 text-[10px] font-black px-2.5 py-0.5 rounded border border-yellow-900/50 shadow-sm">EMPLOYEE</span>
+                  <span className="bg-blue-105 text-blue-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-blue-200 shadow-sm">HR ADMIN</span>
+                  <span className="bg-emerald-105 text-emerald-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-emerald-200 shadow-sm">EVALUATOR MANAGER</span>
+                  <span className="bg-yellow-105 text-yellow-900 text-[10px] font-black px-2.5 py-0.5 rounded border border-yellow-200 shadow-sm">EMPLOYEE</span>
                 </div>
               </div>
             </div>
@@ -728,11 +728,11 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* Structured Pipeline Timeline Section */}
-      <section className="py-24 px-8 bg-slate-900 border-b border-slate-800">
+      <section className="py-24 px-8 bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
-            <h2 className="text-3xl font-extrabold text-slate-100 tracking-tight">Structured Pipeline Flow</h2>
-            <p className="text-slate-400 text-sm leading-relaxed font-semibold">
+            <h2 className="text-3xl font-extrabold text-slate-905 tracking-tight">Structured Pipeline Flow</h2>
+            <p className="text-slate-600 text-sm leading-relaxed font-semibold">
               Automated workflow coordinating validations, manager approvals, and on-chain records.
             </p>
           </div>
@@ -744,15 +744,15 @@ export const LandingPage: React.FC = () => {
               { num: '03', title: 'Manager Evaluation', desc: 'HR validates technical performance scores and approves issuance.' },
               { num: '04', title: 'On-Chain Seal', desc: 'Document hash is permanently written to the blockchain registry.' },
             ].map((step, idx) => (
-              <div key={idx} className="bg-slate-850 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between relative hover:border-emerald-500/20 hover:shadow-2xl transition-all duration-150 text-left">
-                <span className="text-4xl font-black text-emerald-500 opacity-25 font-mono block">{step.num}</span>
+              <div key={idx} className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-md flex flex-col justify-between relative hover:border-emerald-600/30 hover:shadow-lg transition-all duration-150 text-left">
+                <span className="text-4xl font-black text-emerald-700 opacity-25 font-mono block">{step.num}</span>
                 <div className="mt-4">
-                  <h3 className="font-extrabold text-slate-200 text-base">{step.title}</h3>
-                  <p className="text-slate-400 text-xs leading-relaxed font-semibold mt-2">{step.desc}</p>
+                  <h3 className="font-extrabold text-slate-900 text-base">{step.title}</h3>
+                  <p className="text-slate-700 text-xs leading-relaxed font-semibold mt-2">{step.desc}</p>
                 </div>
                 {idx < 3 && (
                   <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                    <ArrowRight className="h-5 w-5 text-slate-700" />
+                    <ArrowRight className="h-5 w-5 text-slate-400" />
                   </div>
                 )}
               </div>
@@ -762,26 +762,26 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* Dynamic Themed Carousel Section for Final Year Project Showcase */}
-      <section className="py-24 px-8 bg-slate-850/50 border-b border-slate-800">
+      <section className="py-24 px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
-            <span className="bg-emerald-955 border border-emerald-900 text-emerald-355 text-[10px] font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+            <span className="bg-emerald-100 border border-emerald-250 text-emerald-900 text-[10px] font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
               Project Pillars Showcase
             </span>
-            <h2 className="text-3xl font-extrabold text-slate-100 tracking-tight mt-3">Platform Core Pillars</h2>
-            <p className="text-slate-400 text-sm leading-relaxed font-semibold animate-pulse">
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mt-3">Platform Core Pillars</h2>
+            <p className="text-slate-600 text-sm leading-relaxed font-semibold animate-pulse">
               Explore the critical technologies coordinating trust and automation inside CertifyPro.
             </p>
           </div>
 
           {/* Carousel Slider Card */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-8 lg:p-12 relative overflow-hidden max-w-4xl mx-auto min-h-[380px] flex flex-col justify-between text-white">
+          <div className="bg-white border border-slate-250 rounded-2xl shadow-xl p-8 lg:p-12 relative overflow-hidden max-w-4xl mx-auto min-h-[380px] flex flex-col justify-between text-slate-800">
             {/* Slide Header Indicator */}
-            <div className="flex justify-between items-center border-b border-slate-850 pb-4 mb-6">
+            <div className="flex justify-between items-center border-b border-slate-150 pb-4 mb-6">
               <span className="bg-emerald-700 text-white font-bold text-[9px] px-2.5 py-0.5 rounded uppercase tracking-wider">
                 {carouselSlides[activeSlide].badge}
               </span>
-              <span className="text-xs font-mono font-bold text-slate-500">
+              <span className="text-xs font-mono font-bold text-slate-400">
                 0{activeSlide + 1} / 0{carouselSlides.length}
               </span>
             </div>
@@ -790,18 +790,18 @@ export const LandingPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center flex-1">
               {/* Text Info */}
               <div className="md:col-span-7 space-y-4 text-left">
-                <span className="text-xs font-bold text-emerald-450 uppercase tracking-wide block">
+                <span className="text-xs font-bold text-emerald-805 uppercase tracking-wide block">
                   {carouselSlides[activeSlide].subtitle}
                 </span>
-                <h3 className="text-xl md:text-2xl font-black text-slate-100 leading-snug">
+                <h3 className="text-xl md:text-2xl font-black text-slate-905 leading-snug">
                   {carouselSlides[activeSlide].title}
                 </h3>
-                <p className="text-xs md:text-sm text-slate-400 font-semibold leading-relaxed">
+                <p className="text-xs md:text-sm text-slate-600 font-semibold leading-relaxed">
                   {carouselSlides[activeSlide].desc}
                 </p>
                 <ul className="space-y-1.5 pt-2">
                   {carouselSlides[activeSlide].details.map((detail, idx) => (
-                    <li key={idx} className="text-xs text-slate-350 flex items-center space-x-2 font-medium">
+                    <li key={idx} className="text-xs text-slate-700 flex items-center space-x-2 font-medium">
                       <span className="h-1.5 w-1.5 bg-emerald-500 rounded-full shrink-0"></span>
                       <span>{detail}</span>
                     </li>
@@ -816,7 +816,7 @@ export const LandingPage: React.FC = () => {
             </div>
 
             {/* Slide Navigation Buttons */}
-            <div className="flex justify-between items-center border-t border-slate-800 pt-6 mt-6">
+            <div className="flex justify-between items-center border-t border-slate-200 pt-6 mt-6">
               {/* Dot Indicators */}
               <div className="flex space-x-2">
                 {carouselSlides.map((_, idx) => (
@@ -824,7 +824,7 @@ export const LandingPage: React.FC = () => {
                     key={idx}
                     onClick={() => setActiveSlide(idx)}
                     className={`h-2.5 rounded-full transition-all duration-300 ${
-                      activeSlide === idx ? 'w-6 bg-emerald-500' : 'w-2.5 bg-slate-800 hover:bg-slate-705'
+                      activeSlide === idx ? 'w-6 bg-emerald-500' : 'w-2.5 bg-slate-200 hover:bg-slate-300'
                     }`}
                     title={`Go to slide ${idx + 1}`}
                   />
@@ -835,14 +835,14 @@ export const LandingPage: React.FC = () => {
               <div className="flex space-x-2">
                 <button
                   onClick={handlePrev}
-                  className="p-2 border border-slate-850 bg-slate-950 rounded-full text-slate-400 hover:text-emerald-400 hover:border-emerald-500 transition-colors shadow-sm"
+                  className="p-2 border border-slate-250 bg-white rounded-full text-slate-650 hover:text-emerald-700 hover:border-emerald-600 transition-colors shadow-sm"
                   title="Previous Slide"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="p-2 border border-slate-850 bg-slate-950 rounded-full text-slate-400 hover:text-emerald-400 hover:border-emerald-500 transition-colors shadow-sm"
+                  className="p-2 border border-slate-250 bg-white rounded-full text-slate-650 hover:text-emerald-700 hover:border-emerald-600 transition-colors shadow-sm"
                   title="Next Slide"
                 >
                   <ChevronRight className="h-4 w-4" />
@@ -854,41 +854,41 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* Statistics Section */}
-      <section className="py-16 bg-gradient-to-r from-emerald-900 via-slate-900 to-emerald-900 border-t border-b border-slate-850 text-white text-center px-8 w-full shadow-md">
+      <section className="py-16 bg-gradient-to-r from-emerald-800 to-teal-900 text-white text-center px-8 w-full shadow-md animate-pulse">
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
           <div className="space-y-1">
-            <p className="text-4xl font-black bg-gradient-to-r from-emerald-450 to-teal-400 bg-clip-text text-transparent">100%</p>
-            <p className="text-slate-400 text-[10px] uppercase tracking-wider font-extrabold animate-pulse">Hash Authenticity</p>
+            <p className="text-4xl font-black">100%</p>
+            <p className="text-emerald-100 text-[10px] uppercase tracking-wider font-extrabold">Hash Authenticity</p>
           </div>
           <div className="space-y-1">
-            <p className="text-4xl font-black bg-gradient-to-r from-emerald-450 to-teal-400 bg-clip-text text-transparent">&lt; 1 Minute</p>
-            <p className="text-slate-400 text-[10px] uppercase tracking-wider font-extrabold animate-pulse">Query Turnaround</p>
+            <p className="text-4xl font-black">&lt; 1 Minute</p>
+            <p className="text-emerald-100 text-[10px] uppercase tracking-wider font-extrabold">Query Turnaround</p>
           </div>
           <div className="space-y-1">
-            <p className="text-4xl font-black bg-gradient-to-r from-emerald-450 to-teal-400 bg-clip-text text-transparent">Zero</p>
-            <p className="text-slate-400 text-[10px] uppercase tracking-wider font-extrabold animate-pulse">Tampering Failures</p>
+            <p className="text-4xl font-black">Zero</p>
+            <p className="text-emerald-100 text-[10px] uppercase tracking-wider font-extrabold">Tampering Failures</p>
           </div>
         </div>
       </section>
 
       {/* FAQ Accordion Section */}
-      <section className="py-24 px-8 bg-slate-900 border-b border-slate-800">
+      <section className="py-24 px-8 bg-white border-b border-slate-200">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-extrabold text-center text-slate-100 tracking-tight mb-12">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-extrabold text-center text-slate-900 tracking-tight mb-12">Frequently Asked Questions</h2>
           <div className="space-y-4">
             {faqs.map((faq, idx) => {
               const isOpen = openFaqIdx === idx;
               return (
                 <div 
                   key={idx} 
-                  className="border border-slate-800 rounded-xl overflow-hidden bg-slate-850/30 shadow-xl transition-colors"
+                  className="border border-slate-250 rounded-xl overflow-hidden bg-white shadow-sm transition-colors"
                 >
                   <button 
                     onClick={() => setOpenFaqIdx(isOpen ? null : idx)}
-                    className="w-full py-4.5 px-6 flex items-center justify-between text-left text-sm md:text-base font-bold text-slate-100 hover:bg-slate-900/40 transition-colors"
+                    className="w-full py-4.5 px-6 flex items-center justify-between text-left text-sm md:text-base font-bold text-slate-900 hover:bg-slate-55/60 transition-colors"
                   >
                     <span>{faq.q}</span>
-                    {isOpen ? <ChevronUp className="h-4 w-4 text-emerald-450 shrink-0 ml-4 animate-pulse" /> : <ChevronDown className="h-4 w-4 text-slate-500 shrink-0 ml-4" />}
+                    {isOpen ? <ChevronUp className="h-4 w-4 text-emerald-700 shrink-0 ml-4 animate-pulse" /> : <ChevronDown className="h-4 w-4 text-slate-400 shrink-0 ml-4" />}
                   </button>
                   <AnimatePresence initial={false}>
                     {isOpen && (
@@ -899,7 +899,7 @@ export const LandingPage: React.FC = () => {
                         transition={{ duration: 0.25 }}
                         className="overflow-hidden"
                       >
-                        <div className="px-6 pb-5 pt-1 text-xs md:text-sm text-slate-300 leading-relaxed border-t border-slate-800 bg-slate-950/60 text-slate-350 text-left">
+                        <div className="px-6 pb-5 pt-1 text-xs md:text-sm text-slate-700 leading-relaxed border-t border-slate-150 bg-slate-50/50 text-left">
                           {faq.a}
                         </div>
                       </motion.div>
@@ -913,17 +913,17 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* BOTTOM CONVERSION CTA BANNER */}
-      <section className="py-20 px-8 bg-gradient-to-b from-slate-800 to-slate-900 text-center relative overflow-hidden border-b border-slate-800">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-emerald-955/20 rounded-full blur-3xl pointer-events-none"></div>
+      <section className="py-20 px-8 bg-gradient-to-b from-slate-50 to-slate-150 text-center relative overflow-hidden border-b border-slate-200">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-emerald-100/40 rounded-full blur-3xl pointer-events-none"></div>
         <div className="max-w-3xl mx-auto relative z-10 space-y-6">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-100 tracking-tight">Ready to Anchor Your Experience Certificates?</h2>
-          <p className="text-slate-300 text-sm md:text-base max-w-xl mx-auto leading-relaxed font-semibold">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Ready to Anchor Your Experience Certificates?</h2>
+          <p className="text-slate-700 text-sm md:text-base max-w-xl mx-auto leading-relaxed font-semibold">
             Join hundreds of forward-thinking organizations writing cryptographic proof tags directly to the blockchain ledger.
           </p>
           <div className="pt-2">
             <Link 
               to="/register" 
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-10 rounded-lg text-sm shadow-md hover:shadow-lg transition-all duration-150 inline-flex items-center space-x-2 border border-emerald-550/25"
+              className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3.5 px-10 rounded-lg text-sm shadow-md hover:shadow-lg transition-all duration-150 inline-flex items-center space-x-2 border border-emerald-800"
             >
               <span>Create Free Enterprise Account</span>
               <ArrowRight className="h-4 w-4" />
@@ -933,11 +933,11 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 py-8 px-8 bg-slate-950 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 mt-auto">
+      <footer className="border-t border-slate-200 py-8 px-8 bg-white flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 mt-auto">
         <p>&copy; 2026 CertifyPro – Chain of Trust. All rights reserved.</p>
-        <div className="flex space-x-6 mt-4 md:mt-0 font-semibold text-slate-400">
-          <Link to="/verify" className="hover:text-emerald-400">Verifier Portal</Link>
-          <Link to="/login" className="hover:text-emerald-400">HR Sign In</Link>
+        <div className="flex space-x-6 mt-4 md:mt-0 font-semibold text-slate-500">
+          <Link to="/verify" className="hover:text-emerald-700">Verifier Portal</Link>
+          <Link to="/login" className="hover:text-emerald-700">HR Sign In</Link>
         </div>
       </footer>
     </div>
