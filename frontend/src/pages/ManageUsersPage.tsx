@@ -142,7 +142,7 @@ export const ManageUsersPage: React.FC<ManageUsersPageProps> = ({ user, onLogout
                   type="text"
                   {...register('name', { required: 'Name is required' })}
                   className="mt-1 block w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none placeholder-gray-400"
-                  placeholder="e.g. Sunakshi PD"
+                  placeholder="e.g. Sarah Connor"
                 />
                 {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name.message as string}</p>}
               </div>
