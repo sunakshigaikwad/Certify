@@ -136,15 +136,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </button>
             </div>
           </form>
-          
-          <div className="mt-6 border-t border-gray-100 pt-6 text-center text-xs text-gray-500">
-            <p>Demo accounts:</p>
-            <div className="flex flex-col space-y-1 mt-2 font-mono">
-              <p>Admin: rutujaingale059@gmail.com (admin123)</p>
-              <p>Evaluator: sunakshigaikwad2@gmail.com (eval123)</p>
-              <p>Employee: akshadhiwar@gmail.com (emp123)</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
