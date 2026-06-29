@@ -113,10 +113,37 @@ export class RequestsService {
       throw new NotFoundException('Request not found');
     }
 
+    const loadFile = (relPath: string) => {
+      if (!relPath) return undefined;
+      try {
+        const fullPath = require('path').join(__dirname, '..', '..', relPath);
+        if (require('fs').existsSync(fullPath)) {
+          const buffer = require('fs').readFileSync(fullPath);
+          const ext = require('path').extname(relPath).toLowerCase();
+          const mimeType = ext === '.pdf' ? 'application/pdf' : 
+                           (ext === '.png' ? 'image/png' : 'image/jpeg');
+          return {
+            base64: buffer.toString('base64'),
+            mimeType,
+          };
+        }
+      } catch (err) {
+        console.error('Error loading file for AI analysis:', relPath, err);
+      }
+      return undefined;
+    };
+
+    const resume = loadFile(request.resumePath);
+    const expLetter = loadFile(request.experienceLetterPath);
+    const aadhaar = loadFile(request.aadhaarPath);
+
     return this.aiService.analyzeSkills(
       request.employeeName,
       request.skillsRequested,
       request.attendance,
+      resume,
+      expLetter,
+      aadhaar,
     );
   }
 }

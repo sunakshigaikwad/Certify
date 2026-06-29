@@ -4,7 +4,14 @@ import { Injectable, Logger } from '@nestjs/common';
 export class AiService {
   private readonly logger = new Logger(AiService.name);
 
-  async analyzeSkills(name: string, skillsStr: string, attendance: number) {
+  async analyzeSkills(
+    name: string,
+    skillsStr: string,
+    attendance: number,
+    resume?: { base64: string; mimeType: string },
+    expLetter?: { base64: string; mimeType: string },
+    aadhaar?: { base64: string; mimeType: string },
+  ) {
     const skills = skillsStr.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
     const apiKey = process.env.GEMINI_API_KEY;
 
@@ -15,11 +22,21 @@ export class AiService {
 
     try {
       const prompt = `
-You are an expert HR Skill Evaluator. Analyze the following candidate experience request and generate a structured evaluation JSON report.
+You are an expert AI Credential Auditor. Your task is to analyze the candidate's certificate request details and verify them against the attached documents.
 
 Candidate Name: ${name}
-Declared Skills: ${skills.join(', ')}
+Declared Skills to Verify: ${skills.join(', ')}
 Attendance Rate: ${attendance}%
+
+Documents attached for verification:
+1. Candidate Resume (attached)
+2. Experience Letter (attached)
+3. Aadhaar Card copy (attached)
+
+Instructions:
+1. **Legitimacy Check:** Verify if the attached files are actual and correct documents. If the candidate has uploaded duplicate placeholder files (e.g. the exact same image/document or a generic certification page in multiple slots like Resume, Experience Letter, and Aadhaar proof), or documents that do not belong to the candidate name "${name}", you MUST flag it.
+2. **Skill Validation:** Only include a skill in "skillsValidated" if it is actually supported by the experience letter or resume details. If the documents are invalid/placeholder files or generic screenshots, return an empty array [] for "skillsValidated".
+3. **Report Generation:** Complete the evaluation and return standard ratings. If the request is flagged as fraud or placeholder documents, explain it clearly in the "comments" section so the HR Admin knows why it was flagged.
 
 Return a JSON object exactly matching this schema:
 {
@@ -36,9 +53,36 @@ Return a JSON object exactly matching this schema:
   "strengths": ["strength1", "strength2"],
   "weaknesses": ["weakness1", "weakness2"],
   "suggestions": ["suggestion1", "suggestion2"],
-  "comments": "string (professional evaluation summary paragraph)"
+  "comments": "string (Detailed summary of your findings. If the document upload has fraud/placeholder/duplicate files, state that clearly here so the user sees the explanation.)"
 }
 `;
+
+      const parts: any[] = [{ text: prompt }];
+
+      if (resume?.base64 && resume?.mimeType) {
+        parts.push({
+          inlineData: {
+            mimeType: resume.mimeType,
+            data: resume.base64
+          }
+        });
+      }
+      if (expLetter?.base64 && expLetter?.mimeType) {
+        parts.push({
+          inlineData: {
+            mimeType: expLetter.mimeType,
+            data: expLetter.base64
+          }
+        });
+      }
+      if (aadhaar?.base64 && aadhaar?.mimeType) {
+        parts.push({
+          inlineData: {
+            mimeType: aadhaar.mimeType,
+            data: aadhaar.base64
+          }
+        });
+      }
 
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
         method: 'POST',
@@ -46,7 +90,7 @@ Return a JSON object exactly matching this schema:
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
+          contents: [{ parts }],
           generationConfig: {
             responseMimeType: 'application/json',
           },
