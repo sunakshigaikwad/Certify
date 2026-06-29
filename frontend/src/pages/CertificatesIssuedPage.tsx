@@ -405,7 +405,20 @@ const BlockchainModal: React.FC<{ cert: any; onClose: () => void }> = ({ cert, o
                           {icon}
                           <span className="font-bold">{label}</span>
                         </div>
-                        <p className="text-gray-300 break-all">{value}</p>
+                        <p className="text-gray-300 break-all">
+                          {key === 'txHash' && value && value.startsWith('0x') ? (
+                            <a
+                              href={`https://amoy.polygonscan.com/tx/${value}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-blue-400 hover:text-blue-300 hover:underline font-semibold"
+                            >
+                              {value}
+                            </a>
+                          ) : (
+                            value
+                          )}
+                        </p>
                       </div>
                       <CopyBtn text={value || ''} id={key} />
                     </div>

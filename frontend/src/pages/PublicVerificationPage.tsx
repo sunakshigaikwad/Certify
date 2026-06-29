@@ -173,7 +173,21 @@ export const PublicVerificationPage: React.FC<PublicVerificationPageProps> = ({ 
                 <div className="bg-gray-50 rounded p-4 font-mono text-xs space-y-1.5 border border-gray-100 text-gray-600">
                   <p className="break-all"><strong>PDF Hash (SHA-256):</strong> {result.certificate.sha256Hash}</p>
                   <p className="break-all"><strong>On-Chain Hash:</strong> {result.blockchain.pdfHash}</p>
-                  <p className="break-all"><strong>Transaction:</strong> {result.blockchain.transactionHash}</p>
+                  <p className="break-all">
+                    <strong>Transaction:</strong>{' '}
+                    {result.blockchain.transactionHash && result.blockchain.transactionHash.startsWith('0x') ? (
+                      <a
+                        href={`https://amoy.polygonscan.com/tx/${result.blockchain.transactionHash}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-emerald-700 hover:text-emerald-800 hover:underline font-bold"
+                      >
+                        {result.blockchain.transactionHash}
+                      </a>
+                    ) : (
+                      result.blockchain.transactionHash || '—'
+                    )}
+                  </p>
                   <p><strong>Issuer Wallet:</strong> {result.blockchain.issuer}</p>
                   <p><strong>Anchored:</strong> {new Date(result.blockchain.timestamp).toLocaleString()}</p>
                 </div>
