@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { GraduationCap, AlertCircle, CheckCircle } from 'lucide-react';
+import { GraduationCap, AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
 
 interface RegisterPageProps {
   onRegisterSuccess: (token: string, user: any) => void;
@@ -16,6 +16,8 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onRegisterSuccess })
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const password = watch('password');
 
@@ -48,6 +50,9 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onRegisterSuccess })
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
       <div className="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center">
+        <Link to="/" className="mb-4 text-xs font-semibold text-emerald-700 hover:text-emerald-800 flex items-center space-x-1">
+          <span>← Back to Home Page</span>
+        </Link>
         <div className="flex items-center space-x-2 text-emerald-700">
           <GraduationCap className="h-10 w-10" />
           <span className="text-3xl font-bold tracking-tight">CertifyPro</span>
@@ -183,42 +188,56 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onRegisterSuccess })
                 <label htmlFor="password" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider">
                   Password
                 </label>
-                <div className="mt-1">
+                <div className="mt-1 relative">
                   <input
                     id="password"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     {...register('password', { 
                       required: 'Password is required',
                       minLength: { value: 6, message: 'Password must be at least 6 characters' }
                     })}
-                    className="block w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none placeholder-gray-400"
+                    className="block w-full rounded border border-gray-300 pl-3 pr-10 py-2 text-sm focus:border-emerald-600 focus:outline-none placeholder-gray-400"
                     placeholder="••••••••"
                   />
-                  {errors.password && (
-                    <p className="mt-1 text-xs text-red-600">{errors.password.message as string}</p>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
                 </div>
+                {errors.password && (
+                  <p className="mt-1 text-xs text-red-600">{errors.password.message as string}</p>
+                )}
               </div>
 
               <div>
                 <label htmlFor="confirmPassword" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider">
                   Confirm Password
                 </label>
-                <div className="mt-1">
+                <div className="mt-1 relative">
                   <input
                     id="confirmPassword"
-                    type="password"
+                    type={showConfirmPassword ? 'text' : 'password'}
                     {...register('confirmPassword', { 
                       required: 'Please confirm your password',
                       validate: value => value === password || 'Passwords do not match'
                     })}
-                    className="block w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none placeholder-gray-400"
+                    className="block w-full rounded border border-gray-300 pl-3 pr-10 py-2 text-sm focus:border-emerald-600 focus:outline-none placeholder-gray-400"
                     placeholder="••••••••"
                   />
-                  {errors.confirmPassword && (
-                    <p className="mt-1 text-xs text-red-600">{errors.confirmPassword.message as string}</p>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                  >
+                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
                 </div>
+                {errors.confirmPassword && (
+                  <p className="mt-1 text-xs text-red-600">{errors.confirmPassword.message as string}</p>
+                )}
               </div>
 
               <div>
