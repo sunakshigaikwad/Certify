@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Patch, UseGuards, UseInterceptors, UploadedFiles } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, UseGuards, UseInterceptors, UploadedFiles, BadRequestException } from '@nestjs/common';
 import { RequestsService } from './requests.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -25,6 +25,15 @@ const uploadStorage = diskStorage({
   },
 });
 
+const fileFilter = (req, file, cb) => {
+  const allowedMimeTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+  if (allowedMimeTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new BadRequestException(`Unsupported file type: ${file.originalname}. Only PDF, JPG, and PNG are allowed.`), false);
+  }
+};
+
 @ApiTags('Certificate Requests')
 @Controller('requests')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -40,7 +49,10 @@ export class RequestsController {
       { name: 'experienceLetter', maxCount: 1 },
       { name: 'aadhaar', maxCount: 1 },
       { name: 'supportingDocs', maxCount: 5 },
-    ], { storage: uploadStorage }),
+    ], { 
+      storage: uploadStorage,
+      fileFilter: fileFilter,
+    }),
   )
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Employee submits a new certificate request' })

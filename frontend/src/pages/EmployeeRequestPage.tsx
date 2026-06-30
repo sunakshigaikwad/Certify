@@ -24,6 +24,36 @@ export const EmployeeRequestPage: React.FC<EmployeeRequestPageProps> = ({ user, 
     setErrorMsg(null);
     setSuccessMsg(null);
 
+    const isValidFile = (file: File) => {
+      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+      return allowedTypes.includes(file.type);
+    };
+
+    if (data.resume && data.resume[0] && !isValidFile(data.resume[0])) {
+      setErrorMsg('Resume must be a PDF, JPG, or PNG file.');
+      setLoading(false);
+      return;
+    }
+    if (data.experienceLetter && data.experienceLetter[0] && !isValidFile(data.experienceLetter[0])) {
+      setErrorMsg('Experience Letter must be a PDF, JPG, or PNG file.');
+      setLoading(false);
+      return;
+    }
+    if (data.aadhaar && data.aadhaar[0] && !isValidFile(data.aadhaar[0])) {
+      setErrorMsg('Aadhaar Proof must be a PDF, JPG, or PNG file.');
+      setLoading(false);
+      return;
+    }
+    if (data.supportingDocs) {
+      for (let i = 0; i < data.supportingDocs.length; i++) {
+        if (!isValidFile(data.supportingDocs[i])) {
+          setErrorMsg(`Supporting document "${data.supportingDocs[i].name}" must be a PDF, JPG, or PNG file.`);
+          setLoading(false);
+          return;
+        }
+      }
+    }
+
     const formData = new FormData();
     formData.append('skillsRequested', data.skillsRequested);
     formData.append('duration', data.duration);
